@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Cerrito Finance Check</title>
+<meta name="description" content="Claims about El Cerrito, CA city finances, from Ira Sharenow's Finance pages and the 2026 City Council candidates, checked against the City's audited reports and other public data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with full-width chart panels; claims ledgers as scrollable tables. Audit-ledger feel: cool paper, ink, one blue accent, semantic verdict colors. */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56636e;
+  --rule: #d6dde2;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --ok: #2f6b3c;
+  --ok-soft: #e4f0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ecd6;
+  --bad: #9b2f24;
+  --bad-soft: #f6e2df;
+  --series2: #c4672b;
+  --series3: #8a99a5;
+  --series4: #5b8c6a;
+  --series5: #b48a2c;
+  --series6: #7a5c99;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+    --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+    --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+    --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+  --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+  --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+  --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 26px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { font-size: 18px; max-width: 68ch; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.part { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--rule); padding-top: 18px; }
+.bottomline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.bl { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bl strong { font-size: 15px; }
+.bl span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.chip { display: inline-block; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+table.narrow { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+tr.group td { background: var(--bg); font-weight: 600; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); font-size: 13px; white-space: nowrap; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.chartbox { position: relative; height: 320px; width: 100%; }
+.chartbox.tall { height: 380px; }
+.caption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; flex-wrap: wrap; }
+.toggle button { font: 500 13px var(--font-body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; border-right: 1px solid var(--rule); }
+.toggle button:last-child { border-right: 0; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
+ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+.sources { font-size: 13px; color: var(--muted); }
+.sources li { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.sitenav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.sitenav a { text-decoration: none; }
+.sitenav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.sitenav a:hover { text-decoration: underline; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+a.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0; }
+a.card:hover { border-color: var(--accent); }
+a.card strong { font-family: var(--font-display); font-size: 19px; font-weight: 650; color: var(--accent); }
+a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.shots { display: block; margin-top: 6px; font-size: 13px; }
+.gallery { display: flex; flex-direction: column; gap: 28px; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
+.gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <div class="eyebrow">El Cerrito General Fund · FY2013-14 to FY2025-26 · audited reports, Council budget reports, CalPERS, State Controller</div>
+  <h1>El Cerrito Finance Check</h1>
+  <p class="lede">Claims about the City of El Cerrito's finances, from <a href="https://irasharenow100.github.io/portfolio/finance/">Ira Sharenow's Finance pages</a> and from the six 2026 City Council candidates, tested against the City's audited annual reports, Council budget updates, CalPERS valuations and State Controller data.</p>
+</header>
+
+<section>
+  <div class="cards">
+    <a class="card" href="finance-pages.html"><strong>Part 1 · Ira Sharenow's Finance pages</strong><span>20 claims from Ira Sharenow's Finance pages and his Nextdoor posts, with eight topic sections and interactive charts. 10 hold up · 5 partly accurate or framed · 4 misleading, unsupported or missing context · 1 no checkable claim.</span></a>
+    <a class="card" href="candidates.html"><strong>Part 2 · The candidates</strong><span>20 statements from forums, ballot statements, campaign sites and Nextdoor, with screenshots. 9 hold up · 6 partly accurate or framed · 4 misleading, unsupported or missing context · 1 no checkable claim.</span></a>
+    <a class="card" href="el-cerrito-financial-statements-FY2014-FY2026.xlsx"><strong>The workbook</strong><span>General Fund and citywide statements, budget variances, pension and statistical schedules, FY2014–FY2026, with source notes and tie-out checks (.xlsx).</span></a>
+  </div>
+</section>
+
+<section>
+  <h2>Summary of Ira Sharenow's Finance pages</h2>
+  <div class="bottomline">
+    <div class="bl"><span class="chip ok">Mostly accurate facts</span><strong>The pages' numbers are largely real.</strong><span>Most figures trace to audited reports. The history they document (negative reserves 2017–2020, going-concern audit opinions, a "high risk" State Auditor designation, annual short-term borrowing) did happen.</span></div>
+    <div class="bl"><span class="chip warn">Framing choices</span><strong>A few key charts and comparisons lean one way.</strong><span>The headline chart changes accounting basis in its final year. The spending-vs-inflation test starts at the 2021 pandemic low. The "$2.9M average" budget revision mixes bases and uses only the three most recent years.</span></div>
+    <div class="bl"><span class="chip bad">Omission</span><strong>The recovery is documented unevenly.</strong><span>The credit rating page records a strong recovery, but the State Auditor page stops in 2021 and leaves out that the high-risk designation was removed in December 2024.</span></div>
+    <div class="bl"><span class="chip info">Real pressures</span><strong>Two long-term concerns hold up.</strong><span>The recovery was mostly revenue-driven: voter-approved taxes, federal relief and tax growth. Pensions are a genuine weight; El Cerrito's liability relative to revenue is 2nd highest of 426 California cities, and the City's own plan has unassigned reserves dipping to 16% in FY2027-28.</span></div>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>Sources and method</h2>
+  <ul class="sources">
+    <li>City of El Cerrito CAFRs/ACFRs FY2014–FY2025 (General Fund budget-to-actual schedules, balance sheets, government-wide statements, statistical section), <a href="https://www.elcerrito.gov/Archive.aspx?AMID=76">elcerrito.gov</a>.</li>
+    <li>Q4 General Fund budget updates: Sept. 17, 2024 (FY2024 Table 1), Sept. 16, 2025 (FY2025 Table 5), Sept. 15, 2026 (FY2026 Table 5, unaudited); FY2022 and FY2023 mid-year updates; FY2025-26 Mid-Year Budget Amendments (Feb. 17, 2026, item 8.A, including the Finance Director's Successor Agency memo); FY2026-27/2027-28 Budget in Brief.</li>
+    <li>CalPERS Annual Valuation Reports, City of El Cerrito Miscellaneous and Safety plans, June 30, 2024 and 2025.</li>
+    <li>California State Controller, By the Numbers: city expenditures per capita, revenues per capita, net pension liability (FY2019, FY2024).</li>
+    <li>U.S. BLS CPI-U, San Francisco-Oakland-Hayward (CUURA422SA0), via FRED.</li>
+    <li>California State Auditor reports <a href="https://information.auditor.ca.gov/reports/2020-803/index.html">2020-803</a> and <a href="https://www.auditor.ca.gov/reports/2024-801">2024-801</a>; GFOA, <a href="https://gfoa.org/materials/achieving-a-structurally-balanced-budget">Achieving a Structurally Balanced Budget</a>.</li>
+    <li>Candidate statements: City Clerk candidate packets (as reproduced on the portfolio site's candidates page), <a href="https://www.2votes4changeec.com/issues">2votes4changeec.com</a>, the <a href="https://www.youtube.com/watch?v=OcbA9xazYY0">Sept. 30, 2026 candidate forum</a>, and the candidates' public Nextdoor posts and replies (reviewed Oct. 19, 2026).</li>
+    <li>Pages reviewed: <a href="https://irasharenow100.github.io/portfolio/finance/">irasharenow100.github.io/portfolio/finance</a> (as of Oct. 19, 2026), and Ira Sharenow's public Nextdoor budget posts from Sept. 11 to Oct. 18, 2026.</li>
+  </ul>
+</section>
+
+<footer>
+  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Corrections welcome.</p>
+</footer>
+
+</div>
+
+</body>
+</html>

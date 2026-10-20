@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Cerrito Finance Check · Ira Sharenow's pages</title>
+<meta name="description" content="Claim-by-claim check of Ira Sharenow's Finance pages against the City's audited reports, budget updates, CalPERS valuations and State Controller data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with full-width chart panels; claims ledgers as scrollable tables. Audit-ledger feel: cool paper, ink, one blue accent, semantic verdict colors. */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56636e;
+  --rule: #d6dde2;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --ok: #2f6b3c;
+  --ok-soft: #e4f0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ecd6;
+  --bad: #9b2f24;
+  --bad-soft: #f6e2df;
+  --series2: #c4672b;
+  --series3: #8a99a5;
+  --series4: #5b8c6a;
+  --series5: #b48a2c;
+  --series6: #7a5c99;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+    --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+    --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+    --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+  --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+  --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+  --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 26px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { font-size: 18px; max-width: 68ch; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.part { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--rule); padding-top: 18px; }
+.bottomline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.bl { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bl strong { font-size: 15px; }
+.bl span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.chip { display: inline-block; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+table.narrow { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+tr.group td { background: var(--bg); font-weight: 600; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); font-size: 13px; white-space: nowrap; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.chartbox { position: relative; height: 320px; width: 100%; }
+.chartbox.tall { height: 380px; }
+.caption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; flex-wrap: wrap; }
+.toggle button { font: 500 13px var(--font-body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; border-right: 1px solid var(--rule); }
+.toggle button:last-child { border-right: 0; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
+ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+.sources { font-size: 13px; color: var(--muted); }
+.sources li { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.sitenav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.sitenav a { text-decoration: none; }
+.sitenav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.sitenav a:hover { text-decoration: underline; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+a.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0; }
+a.card:hover { border-color: var(--accent); }
+a.card strong { font-family: var(--font-display); font-size: 19px; font-weight: 650; color: var(--accent); }
+a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.shots { display: block; margin-top: 6px; font-size: 13px; }
+.gallery { display: flex; flex-direction: column; gap: 28px; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
+.gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <div class="eyebrow">Part 1 · El Cerrito General Fund · FY2013-14 to FY2025-26</div>
+  <h1>An analysis of the claims on Ira Sharenow's Finance pages</h1>
+  <p class="lede">This page tests the claims made in <a href="https://irasharenow100.github.io/portfolio/finance/">Ira Sharenow's Finance pages</a> against the City's audited annual reports, Council budget updates, CalPERS valuations and State Controller data. Candidates' own statements are checked on the <a href="candidates.html">candidates page</a>.</p>
+  <p class="caption">Underlying data: <a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">download the Excel workbook</a>.</p>
+</header>
+
+<section>
+  
+  <h2>The claims, one by one</h2>
+  <p class="prose">"Framed" means the number is right but the presentation points to a conclusion the full data doesn't support. "Material omission" means the claim is accurate as far as it goes but leaves out something that changes the picture.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Claim</th><th>Page</th><th>Verdict</th><th>What the full data shows</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue vs. spending chart: spending crosses above revenue in FY2026</td><td>Finance home, Budget vs. Actual</td><td><span class="chip bad">Misleading</span></td><td>FY2014–25 points exclude transfers between funds; the FY2026 point includes them (+$2.76M to spending, +$1.11M to revenue). On one consistent basis FY2026 revenue ($54.3M) still exceeds spending ($53.8M). The fund-balance draw comes from transfers out, including a one-time cost of more than $1M to wind up the former redevelopment agency.</td></tr>
+      <tr><td>"FY2025-26 is a preliminary $1.08M deficit, the first since FY2018-19"</td><td>Budget vs. Actual</td><td><span class="chip ok">Accurate</span></td><td>True on net change in fund balance. Against the original budget, which planned a $16K surplus, the result was $1.1M worse. <a href="#s2">Section 2</a> lists what the Council added during the year.</td></tr>
+      <tr><td>Spending exceeded the original budget in 10 of 13 years</td><td>Budget KPI Model (KPI 2)</td><td><span class="chip ok">Accurate</span></td><td>Correct. The page's point that the original budget is the plan the Council commits to, and that it routinely left out foreseeable costs, is fair. <a href="#s2">Section 2</a> shows what the additions were.</td></tr>
+      <tr><td>"$2,754,945 over the original adopted budget in FY2026, the largest gap"</td><td>Budget vs. Actual</td><td><span class="chip ok">Accurate</span></td><td>Correct arithmetic (FY2026 is unaudited). Of the gap, about $2.0M is transfers (including the Successor Agency wind-up), $1.1M other Council-approved additions, offset by about $0.4M left unspent. FY2024 had a larger gap ($3.9M) once transfers are counted the same way.</td></tr>
+      <tr><td>"The budget is revised upward by an average of roughly $2.9 million … in each of the last three fiscal years"</td><td>Budget KPI Model</td><td><span class="chip warn">Framed</span></td><td>The three figures mix bases: FY2024 and FY2025 exclude transfers, FY2026 includes them. Consistently counted, the average is $2.2M without transfers or $4.1M with them. The three-year window is also the period right after reserves were rebuilt, when the Council chose to spend some of them on one-time items. Over 12 audited years the average revision was $1.0M. See <a href="#s2">Section 2</a>.</td></tr>
+      <tr><td>Spending grew 2.7x faster than inflation (FY2021 to FY2026)</td><td>Budget KPI Model (KPI 3)</td><td><span class="chip bad">Cherry-picked base</span></td><td>FY2020-21 spending dipped below the two prior years (pandemic closures, vacancies), and the endpoint switches basis. From FY2018-19 to FY2024-25 spending grew 1.4x as fast as Bay Area inflation; from FY2013-14 about 2x. Spending did outpace inflation, by less than the page shows.</td></tr>
+      <tr><td>General Fund deficits in FY2014, 2015, 2018, 2019</td><td>Budget KPI Model (KPI 1)</td><td><span class="chip ok">Accurate</span></td><td>Correct for revenue vs. expenditure before transfers. Every year FY2019-20 through FY2024-25 passed this test, which the page also states.</td></tr>
+      <tr><td>Going-concern audit language 2013–2014 and 2017–2020</td><td>Going-Concern Audits</td><td><span class="chip ok">Accurate</span></td><td>Matches the audited reports, including its removal in FY2021.</td></tr>
+      <tr><td>State Auditor "high risk" designation (2021) and findings</td><td>State Auditor Report</td><td><span class="chip bad">Material omission</span></td><td>Quotes are accurate, but the page stops in 2021. The Auditor's report <a href="https://www.auditor.ca.gov/reports/2024-801">2024-801</a> (Dec. 2024) removed the designation after finding the City had taken satisfactory corrective action.</td></tr>
+      <tr><td>Credit rating cut to BBB− in 2020, raised to BBB in 2023 and A− in 2025</td><td>Credit Rating History</td><td><span class="chip ok">Accurate (taken as given)</span></td><td>Not independently confirmed here; treated as accurate. The page itself documents a strong recovery: three notches back up from the 2020 low, with S&amp;P citing "sustained structural balance, robust reserves."</td></tr>
+      <tr><td>Annual short-term borrowing (TRANs) through FY2022</td><td>TRAN Borrowing</td><td><span class="chip ok">Accurate</span></td><td>Matches the balance sheets ($5M–$9M notes FY2016–FY2022, none after). Ending this is a real improvement.</td></tr>
+      <tr><td>Redevelopment-agency asset transfer and clawback</td><td>RDA Dissolution</td><td><span class="chip ok">Balanced</span></td><td>Carefully sourced; says no evidence supports fraud and that other cities did the same. Events date to 2011–2018.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Claims in Ira Sharenow's Nextdoor posts (Sept.–Oct. 2026)</h3>
+  <p class="prose">Ira also posts budget analysis on Nextdoor, where he announced his Finance pages on Sept. 28. These are the General Fund figures from his recent budget posts, checked the same way. His salary and Recreation-division figures fall outside this analysis's data and weren't checked.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Claim</th><th>Post</th><th>Verdict</th><th>What the full data shows</th></tr></thead>
+    <tbody>
+      <tr><td>"The city spent $1,083,711 more than it took in … the largest operating deficit … going back through FY 2013-14 … bigger than the previous high, in FY 2018-19"</td><td>Nextdoor post, Sept. 11<span class="shots">Screenshot: <a href="#shot-ira-01">Ira post, Sept. 11</a></span></td><td><span class="chip bad">Mixed basis</span></td><td>$1.08M is the change in fund balance, which counts transfers to other funds. On that measure FY2014 was nearly as large (−$1.07M) and FY2019 was only −$0.14M, so FY2019 wasn't the previous high. FY2019's −$0.85M (the figure in his Oct. 18 comment) is revenue minus spending before transfers; on that basis FY2026 had a surplus of about $0.57M ($54.3M vs. $53.8M).</td></tr>
+      <tr><td>"$2,754,945 more than the budget it originally adopted … the second-largest overrun in 13 years (FY 2018-19 is still the largest, at $3.1 million)"</td><td>Nextdoor post, Sept. 11<span class="shots">Screenshot: <a href="#shot-ira-01">Ira post, Sept. 11</a></span></td><td><span class="chip warn">Framed</span></td><td>The arithmetic is right, but the FY2026 figure counts transfers and the FY2019 figure doesn't. Counting transfers both ways, FY2024 was larger ($3.9M); leaving them out, FY2026 was about $0.76M over. See <a href="#s2">Section 2</a>.</td></tr>
+      <tr><td>"The third year in a row the city has exceeded its own original budget"</td><td>Nextdoor post, Sept. 11<span class="shots">Screenshot: <a href="#shot-ira-01">Ira post, Sept. 11</a></span></td><td><span class="chip ok">Accurate</span></td><td>Before transfers: FY2024 +$0.82M, FY2025 +$1.14M, FY2026 +$0.76M over the original budget. More with transfers.</td></tr>
+      <tr><td>"Reserves falling below the city's own target"</td><td>Nextdoor post, Sept. 11<span class="shots">Screenshot: <a href="#shot-ira-01">Ira post, Sept. 11</a></span></td><td><span class="chip warn">Premature</span></td><td>Unassigned reserves were 26% in FY2025 and an estimated 22% in FY2026, above the 17% policy. The adopted budget projects 16% in FY2028.</td></tr>
+      <tr><td>"The 2019 budget over-spent the original budget by $3.1 million and ran a deficit of $850,000"</td><td>Nextdoor comment, Oct. 18<span class="shots">Screenshot: <a href="#shot-ira-02">Ira comment, Oct. 18</a></span></td><td><span class="chip ok">Accurate</span></td><td>FY2019 spending was $40.2M against a $37.1M original budget; revenue was $39.4M, a $0.85M shortfall before transfers.</td></tr>
+      <tr><td>General Fund spending rose from $40,217,837 (FY2022) to $56,518,962 (FY2026), "8.9%" a year vs. 2.9% inflation, faster than 2014–2019 (7.1%)</td><td>Nextdoor comment, Oct. 18<span class="shots">Screenshot: <a href="#shot-ira-02">Ira comment, Oct. 18</a></span></td><td><span class="chip warn">Overstated</span></td><td>The FY2022 figure excludes transfers; the FY2026 figure includes $2.76M of them. Counted consistently, spending grew 7.5% a year: still well above inflation and slightly faster than 2014–2019, which he calculates consistently.</td></tr>
+      <tr><td>General Fund spending went from $39.7 million in 2020 to $56.5 million in 2026, "up 42%"</td><td>Nextdoor posts, Oct. 11 and 12<span class="shots">Screenshot: <a href="#shot-ira-03">Ira post, Oct. 11</a></span></td><td><span class="chip warn">Overstated</span></td><td>Same mixed basis. Without transfers, FY2026 spending was $53.8M, up 35% from FY2020's audited $39.7M. His FY2020–FY2025 figure (+30%) is consistent.</td></tr>
+      <tr><td>"El Cerrito currently has an A- credit rating, which is not very good"</td><td>Nextdoor comment, Oct. 18<span class="shots">Screenshot: <a href="#shot-ira-02">Ira comment, Oct. 18</a></span></td><td><span class="chip info">Opinion</span></td><td>A− matches the rating history on Ira Sharenow's Finance pages: up three notches from the 2020 low, with S&amp;P citing robust reserves. Whether that is "not very good" is a judgment.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s1">
+  <h2>1. The headline chart changes basis in its last year</h2>
+  <p class="prose">The lead chart plots actual General Fund revenue and spending. For FY2014–25 it uses audited figures without transfers between funds. For FY2026 it uses the Q4 report's totals, which include transfers. Toggle to see the effect.</p>
+  <div class="panel">
+    <div class="panel-head">
+      <h3>General Fund revenue and expenditure, $ millions</h3>
+      <div class="toggle" role="group" aria-label="Chart basis">
+        <button type="button" id="b1-site" aria-pressed="false">As the page plots it</button>
+        <button type="button" id="b1-cons" aria-pressed="true">Consistent basis</button>
+      </div>
+    </div>
+    <div class="chartbox"><canvas id="c1" aria-label="Revenue and expenditure chart"></canvas></div>
+    <p class="caption" id="c1cap"></p>
+  </div>
+
+  <div class="panel" id="transfers">
+    <h3>How transfers work, and why they move the numbers</h3>
+    <div class="prose">
+      <p>A transfer moves money from one City fund to another, for example from the General Fund to the debt service fund or the capital projects fund. The City as a whole hasn't spent anything; the money has changed accounts, and the receiving fund may spend it later. Under accounting standards (GASB), transfers sit below the operating line as "other financing sources and uses," and in the citywide statements they cancel out. The City's quarterly budget reports often fold them into total revenues and spending. Neither presentation is wrong, but mixing the two across years changes the picture.</p>
+      <p>Transfers also differ by purpose, so treating them all the same way (all in or all out) misleads:</p>
+    </div>
+    <ul class="tight">
+      <li><strong>Recurring obligations</strong>, mainly City Hall debt service (about $0.63M a year). These are effectively operating costs and belong in spending.</li>
+      <li><strong>Set-asides into the City's own accounts</strong>, such as vehicle replacement ($85K a year). The money is still the City's, but earmarked.</li>
+      <li><strong>One-time capital and cleanup</strong>, such as the FY2024 property purchase and deferred maintenance, the FY2025 pool repair, and the FY2026 Successor Agency wind-up. Real money, but it says little about whether the budget is structurally balanced.</li>
+      <li><strong>Transfers in</strong>: federal relief moved in from the grants fund in FY2021–22, and overhead reimbursements from other funds (counted as transfers in the FY2026 budget report). These make a year look better if counted without checking what they are.</li>
+    </ul>
+    <div class="tablewrap">
+    <table class="narrow">
+      <thead><tr><th>General Fund, $ millions</th><th class="num">FY2021</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026*</th></tr></thead>
+      <tbody>
+        <tr><td>Revenue minus spending, before transfers</td><td class="num">+5.98</td><td class="num">+6.81</td><td class="num">+7.36</td><td class="num">+3.45</td><td class="num">+2.40</td><td class="num">+0.57</td></tr>
+        <tr><td>Transfers in</td><td class="num">+3.18</td><td class="num">+3.25</td><td class="num">+0.00</td><td class="num">+0.00</td><td class="num">+0.00</td><td class="num">+1.11</td></tr>
+        <tr><td>Transfers out in the original budget (mostly City Hall debt service)</td><td class="num">−0.58</td><td class="num">−0.58</td><td class="num">−0.58</td><td class="num">−0.58</td><td class="num">−0.76</td><td class="num">−0.76</td></tr>
+        <tr><td>Transfers out added during the year</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">−3.12</td><td class="num">−0.50</td><td class="num">−2.00</td></tr>
+        <tr><td>Debt proceeds and special items</td><td class="num">−1.32</td><td class="num">–</td><td class="num">+0.15</td><td class="num">–</td><td class="num">+0.21</td><td class="num">–</td></tr>
+        <tr class="group"><td>Net change in fund balance</td><td class="num">+7.25</td><td class="num">+9.48</td><td class="num">+6.93</td><td class="num">−0.25</td><td class="num">+1.36</td><td class="num">−1.08</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="caption">* FY2026 unaudited, from the Q4 budget update; its transfers in are overhead reimbursements that the audited statements may report as revenue. FY2021–FY2025 from the audited budget schedules and transfer notes. Transfers out added during the year: FY2024, about $3.1M to the Capital Improvement Fund (property purchase, deferred maintenance and other Council-approved projects); FY2025, $0.5M for the pool repair; FY2026, $1,045,493 to close out the Successor Agency (see <a href="#successor">Section 2</a>), $945,400 for the Swim Center and $7,500 of pickleball fees to the Capital Improvement Fund, together $2.00M. FY2021 special item: write-off of the General Fund's $1.32M loan to the Successor Agency. In FY2021 the original budget had $0.67M of transfers out; actual was $0.58M (same in FY2022).</p>
+    <div class="prose">
+      <p><strong>Reading it.</strong> Revenue minus spending before transfers shows whether day-to-day operations are covered: positive every year since FY2020, though shrinking. The net change in fund balance shows what happened to reserves, including the one-time decisions. Most of the gap between the original budget and actual results in FY2024 and FY2026 is transfers added during the year, mostly for one-time capital and cleanup. Comparisons stay fair as long as every year is counted the same way.</p>
+    </div>
+  </div>
+</section>
+<section id="s2">
+  <h2>2. Spending above the original budget, and what was added</h2>
+  <div class="prose">
+    <p>One of the central arguments on Ira Sharenow's Finance pages, and from candidate Kimberly White, is that the original adopted budget is the standard to judge by. It is the plan the Council debates and commits to in June. Mid-year amendments, however well-intended, mean that plan didn't hold. This section measures spending against the original budget and lists what the Council added, so readers can judge whether those additions were necessary.</p>
+  </div>
+  <div class="panel">
+    <h3>Spending and transfers out above (below) the original budget, $ millions</h3>
+    <div class="chartbox"><canvas id="c2a" aria-label="Spending versus original budget"></canvas></div>
+    <p class="caption">Expenditures plus transfers out, actual minus original adopted budget. FY2014–FY2025 audited budget schedules; FY2026 from the Q4 update (unaudited). FY2020, FY2021 and FY2023 came in under the original budget.</p>
+  </div>
+
+  <div class="panel">
+    <h3>What the Council added during the year, FY2024–FY2026, $ millions</h3>
+    <div class="chartbox tall"><canvas id="c2b" aria-label="Budget additions by category"></canvas></div>
+    <p class="caption">Itemized lists from the Q4 budget reports (Sept. 2024, Sept. 2025, Sept. 2026). Bars above zero are additions by category; the bar below zero is budgeted money that went unspent. The dot is the net amount spent above the original budget, which matches the chart above.</p>
+  </div>
+
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Category and items</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026*</th></tr></thead>
+    <tbody>
+      <tr class="group"><td>Capital, facilities and equipment</td><td class="num">$2,925,509</td><td class="num">$975,000</td><td class="num">$1,262,935</td></tr>
+      <tr><td>FY2024: property purchase (10936 San Pablo Ave.) $1,604,631; park and facility deferred maintenance $1,084,800; landscape contract $86,078; Arlington Park $75,000; Fire Station 52 generator $75,000. FY2025: pool repair $500,000; fire truck set-aside $380,000; fire vehicle maintenance $95,000. FY2026: Swim Center $945,400; Council Chambers audio-visual $317,535.</td><td></td><td></td><td></td></tr>
+      <tr class="group"><td>Pension prefunding (Section 115 trust)</td><td class="num">$1,000,000</td><td class="num">–</td><td class="num">–</td></tr>
+      <tr class="group"><td>Staffing and program demand</td><td class="num">$1,499,000</td><td class="num">$225,000</td><td class="num">–</td></tr>
+      <tr><td>FY2024: recreation staffing for increased programs $510,000; community development staffing for permit volume $466,000; fire overtime during emergency engine repairs $337,000; inspections, emergency tree work, filled vacancies $186,000. FY2025: childcare $115,000; youth instructors $60,000; swim staffing $50,000.</td><td></td><td></td><td></td></tr>
+      <tr class="group"><td>Labor contracts and insurance</td><td class="num">$382,754</td><td class="num">$391,482</td><td class="num">$120,116</td></tr>
+      <tr><td>FY2024: insurance premium and SEIU contract $376,484; Council salary $6,270. FY2025: police and fire association contracts $354,860; SEIU $36,622. FY2026: firefighters' contract $120,116.</td><td></td><td></td><td></td></tr>
+      <tr class="group"><td>Prior-year purchase orders carried forward</td><td class="num">(incl. above)</td><td class="num">$603,425</td><td class="num">$291,695</td></tr>
+      <tr class="group"><td>Elections, districting, studies, legal and other</td><td class="num">$399,269</td><td class="num">$278,000</td><td class="num">$330,163</td></tr>
+      <tr><td>FY2024: Safety Element $184,269; Measure R public information $125,000; cyber-attack deductible $90,000. FY2025: service delivery study $120,000; HR legal $60,000; library project $45,000; abatement $35,000; election and records $18,000. FY2026: switch to district elections $250,000; special election $80,163.</td><td></td><td></td><td></td></tr>
+      <tr class="group"><td>Redevelopment cleanup</td><td class="num">$350,000</td><td class="num">–</td><td class="num">$1,142,493</td></tr>
+      <tr><td>FY2024: repayment of the 2016 MSC loan, directed to Del Norte streets. FY2026: Feb. 17 mid-year amendments, mainly the Successor Agency close-out transfer of $1,045,493 (see below), plus library initiative fiscal report $29,500, Community Development Director recruitment $30,000, storm tree work $30,000 and a pickleball fee transfer $7,500.</td><td></td><td></td><td></td></tr>
+      <tr class="group"><td>Total added during the year</td><td class="num">$6,556,532</td><td class="num">$2,472,907</td><td class="num">$3,147,402</td></tr>
+      <tr><td>Net spent above original budget (after unspent amounts)</td><td class="num">$3,940,000</td><td class="num">$1,640,000</td><td class="num">$2,755,000</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">* FY2026 unaudited. FY2024 purchase-order carryover ($1.0M) is included in the item totals rather than listed separately. FY2022 and FY2023 additions ($2.4M and $2.7M before transfers) were approved item by item at mid-year and are not itemized in one table; by function they went mostly to community development (permit-driven staffing, partly offset by higher plan-check fees), public safety, general government and public works.</p>
+
+  <div class="callout" id="successor">
+    <h3>What the FY2026 Successor Agency payment was</h3>
+    <p>When the State dissolved redevelopment agencies in 2012, El Cerrito's Successor Agency took over the former agency's debts and paid them from property tax, subject to State Department of Finance approval. The State disallowed a number of costs, including earlier transfers to the City and its Municipal Services Corporation. The City sued and lost, with the final appeal resolved in 2021. Under a 2015 repayment plan the agency paid out $1.98M, and the General Fund lent it $1.32M in 2017–18 to cover the shortfall. That loan was written off in FY2021 (the special item in the <a href="#transfers">transfers table</a>).</p>
+    <p>The City also kept charging the agency for costs it hoped the State would later approve, mostly denied obligations and legal fees. Because the agency received each year's first payment in advance, its cash balance never showed the gap. When it made its last bond payment ($1.06M) in FY2026 and closed, the shortfall surfaced: $1,045,493. On Feb. 17, 2026 the Council approved a General Fund transfer to cover it. It is a one-time cost, but it settles spending from earlier years, largely the failed litigation and denied claims, rather than FY2026 operations. With the agency's debt paid off, more of the area's property tax now flows to the City and other local agencies as residual property tax.</p>
+    <p class="caption">Source: Feb. 17, 2026 Council agenda item 8.A (FY2025-26 Mid-Year Budget Amendments), Finance Director's memo and Successor Agency cash-balance schedule (Attachments 3 and 4); FY2025 ACFR Note 9.</p>
+  </div>
+  <div class="callout">
+    <h3>About the "$2.9 million average" revision</h3>
+    <p>The KPI page averages FY2024 ($3.52M), FY2025 ($1.97M) and FY2026 ($3.13M). The first two leave out transfers; the third includes them. Counted the same way, the three-year average is $2.2M without transfers or $4.1M with them.</p>
+    <p>The window matters too. FY2024–26 followed a three-year rebuild that took reserves to roughly 40–50% of spending. The largest FY2024 items were a property purchase, a $1.0M deposit into the pension trust, and $1.1M of deferred maintenance: one-time uses of reserves the Council voted on, not spending that crept in. Across the 12 audited years the revision averaged $1.0M; from FY2014 to FY2021 it averaged about $0.2M.</p>
+    <p>The underlying point still stands. Each year's additions included items that were predictable in June: labor contracts (about $0.4M in FY2024 and FY2025), fire apparatus, pool repairs and prior-year purchase orders. Putting those in the original budget is what budget discipline means. The FY2027-28 budget responds partly by adding annual set-asides for vehicle, equipment and facility replacement. Whether the remaining items were necessary is a judgment the lists above let readers make.</p>
+    <p class="caption">For reference, spending came in below the amended budget in each of these years by about $2.6M, $0.8M and $0.4M.</p>
+  </div>
+  <h3 id="unspent">Where the amended budget went unspent</h3>
+  <p class="prose">Each year spending came in below the amended budget. The City's year-end reports break the gap down by department. Positive numbers are budget left unspent; numbers in parentheses are departments that spent more than their amended budget.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Department</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026*</th></tr></thead>
+    <tbody>
+      <tr><td>Administration</td><td class="num">$571,363</td><td class="num">$277,838</td><td class="num">$486,546</td></tr>
+      <tr><td>Community Development</td><td class="num">$625,049</td><td class="num">$321,533</td><td class="num">$188,005</td></tr>
+      <tr><td>Fire</td><td class="num">$227,225</td><td class="num">($587,153)</td><td class="num">($479,691)</td></tr>
+      <tr><td>Police</td><td class="num">$519,893</td><td class="num">$150,227</td><td class="num">($217,559)</td></tr>
+      <tr><td>Public Works</td><td class="num">$234,428</td><td class="num">$166,054</td><td class="num">$194,738</td></tr>
+      <tr><td>Recreation</td><td class="num">$411,548</td><td class="num">$520,198</td><td class="num">$233,566</td></tr>
+      <tr><td>Non-departmental</td><td class="num">$62,422</td><td class="num">($14,047)</td><td class="num">($25,568)</td></tr>
+      <tr class="group"><td>Total unspent vs. amended budget</td><td class="num">$2,651,928</td><td class="num">$834,650</td><td class="num">$380,037</td></tr>
+      <tr><td>Less: purchase orders carried into the next year's budget</td><td class="num">($604,624)</td><td class="num">($291,695)</td><td class="num">($69,891)</td></tr>
+      <tr class="group"><td>Unspent after carry-forwards</td><td class="num">$2,047,304</td><td class="num">$542,955</td><td class="num">$310,146</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">* FY2026 unaudited. Department figures include transfers out, which are budgeted under Non-departmental. FY2024 from the Sept. 17, 2024 Q4 report (projected year-end, Table 5); FY2025 and FY2026 from the Sept. 15, 2026 Q4 report (Table 4). Carry-forwards from the Council's annual roll-forward resolutions (Sept. 2024, 2025 and 2026).</p>
+  <div class="callout">
+    <h3>Purchase-order carry-forwards count twice</h3>
+    <p>Not all of the unspent money is savings. When goods or services are ordered but not delivered by June 30, the Council carries that budget into the next year. The same dollars then show up twice: as unspent in the first year, and as a mid-year addition in the second (the "prior-year purchase orders" line in the table above). The $0.6M carried out of FY2024 became FY2025's $603,425 roll-forward amendment, and FY2025's $291,695 became FY2026's. The carry-forwards have been shrinking, to $69,891 out of FY2026.</p>
+    <p>The overages are mostly public-safety overtime. In FY2025 Fire went over because of overtime on statewide mutual-aid deployments, which the State reimburses; the City says Fire also beat its revenue budget by 13% that year. In FY2026 Fire and Police overtime covered staff absences, a paramedic shortage and new labor contracts. The departments under budget mostly reflect vacancies, project timing and lower purchases.</p>
+  </div>
+</section>
+<section id="s3">
+  <h2>3. Spending vs. inflation depends on where you start</h2>
+  <p class="prose">KPI 3 indexes spending and Bay Area inflation to FY2020-21. That year spending dipped below the two prior years, because recreation was closed and positions were vacant. Pick a different starting year.</p>
+  <div class="panel">
+    <div class="panel-head">
+      <h3>General Fund expenditures vs. Bay Area CPI-U, indexed to start year = 100</h3>
+      <div class="toggle" role="group" aria-label="Base year">
+        <button type="button" data-base="0" aria-pressed="false">FY2014</button>
+        <button type="button" data-base="5" aria-pressed="true">FY2019</button>
+        <button type="button" data-base="7" aria-pressed="false">FY2021 (page's choice)</button>
+      </div>
+    </div>
+    <div class="chartbox"><canvas id="c3" aria-label="Spending versus inflation"></canvas></div>
+    <div class="stat-row" id="c3stats"></div>
+    <p class="caption">Expenditures exclude transfers in every year, including FY2026 (unaudited). CPI: BLS series CUURA422SA0, June values. Spending growth includes restoring services after the pandemic, labor contracts following a 2024 compensation study, and pension contributions that rose from $4.6M to $10.3M a year (FY2016–FY2025).</p>
+  </div>
+</section>
+<section id="s4">
+  <h2>4. Reserves: why so low then, and so high now</h2>
+  <div class="prose">
+    <p>The General Fund went from a negative balance in FY2019–2020 to $24M in FY2025. Policy changed, but mostly after the rebuild had happened.</p>
+    <p><strong>Before 2020.</strong> The City ran deficits in eight of eleven years from FY2010 to FY2020 (State Auditor). Its policy asked for a reserve of only 10% of spending, and it never reached that. Dissolution of the redevelopment agency in 2012 removed about $1M a year of support for City functions, and the General Fund absorbed $1.3M of the state clawback. Pension contributions rose by more than half between FY2016 and FY2020. The City borrowed $5M–$9M each year (TRANs) to cover cash flow.</p>
+    <p><strong>FY2021 to FY2023.</strong> The rebuild was revenue-driven. Voters approved a real property transfer tax (Measure V, November 2018), which has brought in $3.2M–$5.3M a year since FY2020. The City moved $6.1M of federal pandemic relief (ARPA) into the General Fund in FY2021–22. Revenue beat the original budget by $3.9M–$7.6M a year as the economy recovered, while pandemic closures and vacancies held spending down. The fund balance rose from −$0.1M to $23.1M in three years.</p>
+    <p><strong>Policy since.</strong> In August 2023 the Council amended its financial policy: 17% of spending held as unassigned reserve, plus 13% in a separate Emergency Disaster Relief Fund. Separately, the City has built a Section 115 pension trust that now holds $3M. The FY2027-28 budget projects the unassigned reserve slipping just under that 17% floor.</p>
+  </div>
+  <div class="panel">
+    <h3>Total General Fund balance ($M, bars) and unassigned reserve as % of expenditures (line)</h3>
+    <div class="chartbox tall"><canvas id="c4" aria-label="Reserves chart"></canvas></div>
+    <p class="caption">Unassigned excludes the Emergency Disaster Relief reserve ($9.0M FY2024, $7.5M FY2025) and the pension trust. FY2026 balance is the Q4 report's unaudited estimate; its 22% unassigned figure is the City's. FY2027 and FY2028 are the City's adopted-budget projections (18% and 16%). The policy floor was 10% before August 2023. GFOA's two-month guideline (16.7%) applies to all unrestricted balance, which would include the disaster reserve; on that measure the City stays near 29%.</p>
+  </div>
+</section>
+<section id="s5">
+  <h2>5. Pensions are the main long-term pressure</h2>
+  <p class="prose">CalPERS' own valuations put the City's plans about 71% funded, and the required payments toward the unfunded liability keep rising before they level off.</p>
+  <div class="twocol">
+    <div class="panel">
+      <h3>CalPERS funded ratio and unfunded liability, both plans</h3>
+      <div class="chartbox"><canvas id="c5" aria-label="Pension funded ratio"></canvas></div>
+      <p class="caption">Valuation dates June 30, 2015–2025. Market value of assets vs. entry-age accrued liability (CalPERS funding basis).</p>
+    </div>
+    <div class="panel">
+      <h3>Required and projected payments on the unfunded liability, $M</h3>
+      <div class="chartbox"><canvas id="c6" aria-label="Pension payment outlook"></canvas></div>
+      <p class="caption">FY2025-26 to FY2027-28 required; later years projected by CalPERS assuming 6.8% returns. Normal cost for current employees is on top of these amounts.</p>
+    </div>
+  </div>
+  <ul class="tight">
+    <li>Net pension liability is 1.28 times total city revenue, 2nd highest of 426 California cities over 5,000 people (statewide median 0.37). Part of that comes from running its own fire department.</li>
+    <li>If CalPERS earns 1 point less than assumed, the unfunded liability rises from $80M to about $117M.</li>
+    <li>Paying the annual bill as a July lump sum instead of monthly is about $280K a year cheaper (CalPERS figures for FY2026-27). The City's reports don't say whether it already does this.</li>
+  </ul>
+</section>
+<section id="s6">
+  <h2>6. Is El Cerrito an outlier on spending?</h2>
+  <p class="prose">State Controller data covers all city funds, so it compares cities on the same basis.</p>
+  <div class="panel">
+    <h3>Total city expenditures per resident, FY2019 vs. FY2024</h3>
+    <div class="chartbox"><canvas id="c7" aria-label="Spending per capita"></canvas></div>
+    <p class="caption">Source: California State Controller, City Expenditures Per Capita (dataset ykhf-vfsr). Emeryville and Berkeley omitted for scale ($7,935 and $4,814 in FY2024). Cities that contract out police or fire (Hercules, Pleasant Hill) are not like-for-like.</p>
+  </div>
+</section>
+<section id="s7">
+  <h2>7. Where the money goes, and what the Council can change</h2>
+  <p class="prose">Public safety dominates the net cost. Recreation, community development and much of public works are partly paid for by fees and grants, so cutting them saves less than their gross budgets suggest.</p>
+  <div class="panel">
+    <h3>Citywide net cost by function, FY2024-25, $M (expense less fees and grants)</h3>
+    <div class="chartbox"><canvas id="c8" aria-label="Net cost by function"></canvas></div>
+    <p class="caption">From the audited statement of activities (full accrual, all governmental funds). Net cost is what general taxes must cover.</p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Lever</th><th class="num">Rough size per year</th><th>Constraints</th></tr></thead>
+    <tbody>
+      <tr><td>Budget known costs in June (contracts, apparatus, repairs, carryover)</td><td class="num">$0.4–1.5M of each year's additions</td><td>Doesn't reduce spending; makes the adopted budget honest about it, so tradeoffs happen in public before the year starts.</td></tr>
+      <tr><td>Fill police/fire vacancies to cut overtime</td><td class="num">$0.5–0.7M</td><td>FY2026 overruns came from vacancies, a paramedic shortage and minimum-staffing rules. Depends on hiring, not on votes.</td></tr>
+      <tr><td>Stop funding one-time capital from reserves</td><td class="num">$0.5–3M (lumpy)</td><td>FY2024 used $2.9M (land, park repairs); FY2026 about $1.3M. Deferring it shifts cost to later or lets assets decay. The new set-asides move it into the ongoing budget instead.</td></tr>
+      <tr><td>Prepay the CalPERS bill annually; use the $3M pension trust to smooth the peak</td><td class="num">~$0.3M</td><td>Requires cash on hand in July; trust money is restricted to pensions.</td></tr>
+      <tr><td>Labor costs (71% of General Fund spending)</td><td class="num">Large but slow</td><td>Set by multi-year contracts. Pension payments for past service are contractual and cannot be cut.</td></tr>
+      <tr><td>Cut non-safety services</td><td class="num">Net cost: recreation $1.8M, community dev. $1.4M, public works $2.1M</td><td>Closing a $1M ongoing gap this way means cutting about one-fifth of the combined net cost of those three.</td></tr>
+      <tr><td>New revenue</td><td class="num">Varies</td><td>Utility tax on streaming begins Fall 2026. Transfer-tax receipts have ranged from $3.2M to $5.3M a year since FY2020. New taxes need voter approval; Measure C failed 70–30.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+<section id="s8">
+  <h2>8. Should every year's budget balance?</h2>
+  <div class="prose">
+    <p>Government finance standards don't ask for that. GFOA's best practice is structural balance: recurring revenues should cover recurring expenses. Reserves are meant to absorb shocks and pay for one-time items, within a policy floor.</p>
+    <p>Two conditions make using reserves defensible. Recurring costs (raises, staffing) must not be funded with one-time money; the City says its FY2027-28 budget keeps ongoing revenue above ongoing spending, which can't be checked without the full budget book. And the reserve floor has to hold. The projected dip to 16% in FY2028 is about $0.6M below target, a gap modest savings or fewer one-time items could close. That is small relative to the budget, but it comes as pension payments rise and the revenue base leans on volatile transfer taxes.</p>
+  </div>
+</section>
+<section id="screenshots">
+  <h2>Nextdoor screenshots</h2>
+  <p class="prose">Captured October 19, 2026 from Ira Sharenow's public Nextdoor posts. Other residents' names and photos and all neighborhood labels are blacked out.</p>
+  <div class="gallery">
+  <figure id="shot-ira-01">
+    <a href="screenshots/ira-01-post-sep11-worst-deficit.png"><img src="screenshots/ira-01-post-sep11-worst-deficit.png" width="760" height="650" loading="lazy" alt="Ira S., Nextdoor post, Sept. 11, 2026: &quot;El Cerrito's Budget Just Posted Its Worst Deficit in Over a Decade&quot;."></a>
+    <figcaption>Ira S., Nextdoor post, Sept. 11, 2026: "El Cerrito's Budget Just Posted Its Worst Deficit in Over a Decade".</figcaption>
+  </figure>
+  <figure id="shot-ira-02">
+    <a href="screenshots/ira-02-comment-oct18-spending-growth.png"><img src="screenshots/ira-02-comment-oct18-spending-growth.png" width="750" height="676" loading="lazy" alt="Ira S., comment on his own Nextdoor post, Oct. 18, 2026: the FY2019 overrun and deficit, the A− rating, and spending growth since 2022."></a>
+    <figcaption>Ira S., comment on his own Nextdoor post, Oct. 18, 2026: the FY2019 overrun and deficit, the A− rating, and spending growth since 2022.</figcaption>
+  </figure>
+  <figure id="shot-ira-03">
+    <a href="screenshots/ira-03-post-oct11-since-2020.png"><img src="screenshots/ira-03-post-oct11-since-2020.png" width="760" height="455" loading="lazy" alt="Ira S., Nextdoor post, Oct. 11, 2026: General Fund spending &quot;up 42% from 2020&quot;."></a>
+    <figcaption>Ira S., Nextdoor post, Oct. 11, 2026: General Fund spending "up 42% from 2020".</figcaption>
+  </figure>
+  </div>
+</section>
+
+<footer>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Corrections welcome.</p>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function () {
+  const FY = ["FY14","FY15","FY16","FY17","FY18","FY19","FY20","FY21","FY22","FY23","FY24","FY25","FY26*"];
+  const rev = [28.25,29.11,31.47,34.48,35.78,39.35,39.98,43.19,47.02,50.81,52.12,54.13,54.33];
+  const exp = [28.51,29.14,31.31,33.87,36.25,40.20,39.69,37.21,40.22,43.46,48.67,51.73,53.76];
+  const siteRev26 = 55.44, siteExp26 = 56.52;
+  const overOrig = [1.67,0.56,0.73,0.62,1.31,3.83,-0.52,-0.92,0.87,-0.82,3.94,1.64,2.75];
+  const addYears = ["FY2024","FY2025","FY2026*"];
+  const addCats = [
+    ["Capital, facilities, equipment", [2.93,0.98,1.26], "--accent"],
+    ["Pension trust deposit", [1.00,0,0], "--series6"],
+    ["Staffing and program demand", [1.50,0.23,0], "--series4"],
+    ["Labor contracts and insurance", [0.38,0.39,0.12], "--series2"],
+    ["Prior-year purchase orders", [0,0.60,0.29], "--series3"],
+    ["Elections, studies, legal, other", [0.40,0.28,0.33], "--series5"],
+    ["Redevelopment cleanup", [0.35,0,1.14], "--bad"]
+  ];
+  const unspent = [-2.62,-0.83,-0.39];
+  const netAbove = [3.94,1.64,2.75];
+  const cpi = [253.317,259.117,266.041,275.304,286.062,295.259,300.032,309.497,330.539,340.056,351.064,356.460,369.913];
+  const fb = [1.27,1.46,1.89,0.82,0.09,-0.06,-0.11,7.14,16.62,23.14,22.89,24.25,23.17];
+  const unasPct = [3.5,4.5,5.5,-0.5,-6.2,-4.2,-4.5,19.1,40.8,53.0,25.5,26.3,22.0,18.0,16.0];
+  const policy = [10,10,10,10,10,10,10,10,10,10,17,17,17,17,17];
+  const FY4 = FY.concat(["FY27p","FY28p"]);
+  const cpYears = ["2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
+  const fr = [70.2,65.6,67.3,66.2,66.7,66.0,75.2,65.1,64.8,66.9,71.0];
+  const ual = [48.47,59.01,59.71,67.09,69.85,74.50,57.79,84.96,89.25,87.52,80.35];
+  const payFY = ["25-26","26-27","27-28","28-29","29-30","30-31","31-32","32-33"];
+  const payMisc = [2.45,2.67,2.80,2.94,2.91,2.88,2.34,2.32];
+  const paySafe = [5.57,6.06,6.41,6.73,6.65,6.55,6.53,6.50];
+  const peers = ["El Cerrito","Albany","San Pablo","Pinole","Richmond","Piedmont","Hercules","Pleasant Hill"];
+  const pc19 = [2058,1556,1902,1362,2920,3058,1129,1051];
+  const pc24 = [2439,2281,2472,2406,3129,4324,1368,1219];
+  const funcs = ["Public safety","General government","Public works","Recreation","Community development","Debt interest"];
+  const fExp = [34.27,8.95,9.70,7.68,4.47,0.54];
+  const fNet = [27.60,6.68,2.13,1.83,1.44,0.54];
+
+  const tok = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const charts = [];
+  const money = v => (v < 0 ? "−$" : "$") + Math.abs(v).toFixed(2) + "M";
+  function base() {
+    Chart.defaults.font.family = tok("--font-body");
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = tok("--muted");
+    Chart.defaults.borderColor = tok("--rule");
+  }
+  const xAxis = () => ({ grid: { display: false }, ticks: { color: tok("--muted") } });
+  const yAxis = (fmt, extra) => Object.assign({ grid: { color: tok("--rule") }, ticks: { color: tok("--muted"), callback: fmt } }, extra || {});
+  const legend = () => ({ labels: { color: tok("--ink"), boxWidth: 12, boxHeight: 12 } });
+
+  let basis = "cons";
+  function c1data() {
+    const r = rev.slice(), e = exp.slice();
+    if (basis === "site") { r[12] = siteRev26; e[12] = siteExp26; }
+    return [r, e];
+  }
+  function c1caption() {
+    const [r, e] = c1data();
+    document.getElementById("c1cap").textContent = basis === "site"
+      ? "FY2026 point includes transfers: revenue $" + r[12].toFixed(2) + "M vs. spending $" + e[12].toFixed(2) + "M, so spending appears to cross above revenue."
+      : "FY2026 on the same basis as earlier years: revenue $" + r[12].toFixed(2) + "M vs. spending $" + e[12].toFixed(2) + "M. Revenue has exceeded spending every year since FY2020. The FY2026 fund-balance draw comes from $2.76M of transfers out.";
+  }
+
+  let baseIdx = 5;
+  function c3series() {
+    const e = exp.map(v => v / exp[baseIdx] * 100), c = cpi.map(v => v / cpi[baseIdx] * 100);
+    return [e.map((v, i) => i < baseIdx ? null : v), c.map((v, i) => i < baseIdx ? null : v)];
+  }
+  function c3stats() {
+    const end = 11, eg = exp[end] / exp[baseIdx] - 1, cg = cpi[end] / cpi[baseIdx] - 1;
+    document.getElementById("c3stats").innerHTML =
+      "<span>Spending growth to FY2025: <b>" + (eg * 100).toFixed(0) + "%</b></span>" +
+      "<span>Inflation: <b>" + (cg * 100).toFixed(0) + "%</b></span>" +
+      "<span>Ratio: <b>" + (eg / cg).toFixed(1) + "x</b></span>";
+  }
+
+  function build() {
+    charts.forEach(c => c.destroy()); charts.length = 0;
+    base();
+    const ink = tok("--ink"), acc = tok("--accent"), s2 = tok("--series2"), s3 = tok("--series3"), ok = tok("--ok"), bad = tok("--bad"), warn = tok("--warn");
+    const [r, e] = c1data();
+    charts.push(new Chart(document.getElementById("c1"), {
+      type: "line",
+      data: { labels: FY, datasets: [
+        { label: "Revenue", data: r, borderColor: acc, backgroundColor: acc, tension: 0.2, pointRadius: 3 },
+        { label: "Expenditure", data: e, borderColor: s2, backgroundColor: s2, tension: 0.2, pointRadius: 3 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + money(c.parsed.y) } } },
+        scales: { x: xAxis(), y: yAxis(v => "$" + v + "M") } }
+    }));
+    charts.push(new Chart(document.getElementById("c2a"), {
+      type: "bar",
+      data: { labels: FY, datasets: [{ label: "Actual minus original budget", data: overOrig, backgroundColor: overOrig.map(v => v > 0 ? s2 : ok) }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.parsed.y) } } },
+        scales: { x: xAxis(), y: yAxis(v => "$" + v + "M") } }
+    }));
+    const ds2b = addCats.map(([lab, vals, t]) => ({ type: "bar", label: lab, data: vals, backgroundColor: tok(t), stack: "a", order: 2 }));
+    ds2b.push({ type: "bar", label: "Budgeted but unspent", data: unspent, backgroundColor: tok("--ok"), stack: "a", order: 2 });
+    ds2b.push({ type: "line", label: "Net spent above original budget", data: netAbove, borderColor: ink, backgroundColor: ink, showLine: false, pointRadius: 7, pointStyle: "circle", order: 0 });
+    charts.push(new Chart(document.getElementById("c2b"), {
+      data: { labels: addYears, datasets: ds2b },
+      options: { maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + money(c.parsed.y) } } },
+        scales: { x: Object.assign(xAxis(), { stacked: true }), y: yAxis(v => "$" + v + "M", { stacked: true }) } }
+    }));
+    const [se, sc] = c3series();
+    charts.push(new Chart(document.getElementById("c3"), {
+      type: "line",
+      data: { labels: FY, datasets: [
+        { label: "General Fund expenditures", data: se, borderColor: s2, backgroundColor: s2, tension: 0.2, pointRadius: 3 },
+        { label: "Bay Area CPI", data: sc, borderColor: acc, backgroundColor: acc, tension: 0.2, pointRadius: 3 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + c.parsed.y.toFixed(0) } } },
+        scales: { x: xAxis(), y: yAxis(v => v) } }
+    }));
+    charts.push(new Chart(document.getElementById("c4"), {
+      data: { labels: FY4, datasets: [
+        { type: "line", label: "Unassigned reserve, % of expenditures", data: unasPct, borderColor: acc, backgroundColor: acc, yAxisID: "y1", tension: 0.2, borderWidth: 2.5,
+          segment: { borderDash: ctx => ctx.p0DataIndex >= 12 ? [5, 4] : undefined }, pointRadius: 3, order: 0 },
+        { type: "line", label: "City policy floor (10% to 2023, then 17%)", data: policy, borderColor: warn, borderDash: [3, 3], pointRadius: 0, stepped: true, yAxisID: "y1", order: 1 },
+        { type: "bar", label: "Total General Fund balance ($M)", data: fb.concat([null, null]), backgroundColor: fb.map(v => v < 0 ? bad : s3).concat([s3, s3]), yAxisID: "y", order: 2 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend() },
+        scales: { x: xAxis(),
+          y: yAxis(v => "$" + v + "M", { position: "left", title: { display: true, text: "Fund balance", color: tok("--muted") } }),
+          y1: { position: "right", grid: { display: false }, min: -10, max: 60, ticks: { color: tok("--muted"), callback: v => v + "%" }, title: { display: true, text: "Unassigned %", color: tok("--muted") } } } }
+    }));
+    charts.push(new Chart(document.getElementById("c5"), {
+      data: { labels: cpYears, datasets: [
+        { type: "line", label: "Funded ratio (%)", data: fr, borderColor: acc, backgroundColor: acc, yAxisID: "y1", tension: 0.2, pointRadius: 3, borderWidth: 2.5, order: 0 },
+        { type: "bar", label: "Unfunded liability ($M)", data: ual, backgroundColor: s3, yAxisID: "y", order: 1 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend() },
+        scales: { x: xAxis(),
+          y: yAxis(v => "$" + v + "M", { position: "left", beginAtZero: true }),
+          y1: { position: "right", min: 50, max: 90, grid: { display: false }, ticks: { color: tok("--muted"), callback: v => v + "%" } } } }
+    }));
+    charts.push(new Chart(document.getElementById("c6"), {
+      type: "bar",
+      data: { labels: payFY, datasets: [
+        { label: "Safety plans", data: paySafe, backgroundColor: s2, stack: "p" },
+        { label: "Miscellaneous plans", data: payMisc, backgroundColor: s3, stack: "p" }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { footer: items => "Total: " + money(items.reduce((a, i) => a + i.parsed.y, 0)) } } },
+        scales: { x: Object.assign(xAxis(), { stacked: true }), y: yAxis(v => "$" + v + "M", { stacked: true, beginAtZero: true }) } }
+    }));
+    charts.push(new Chart(document.getElementById("c7"), {
+      type: "bar",
+      data: { labels: peers, datasets: [
+        { label: "FY2019", data: pc19, backgroundColor: s3 },
+        { label: "FY2024", data: pc24, backgroundColor: peers.map(p => p === "El Cerrito" ? acc : s2) }] },
+      options: { maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { label: c => c.dataset.label + ": $" + c.parsed.y.toLocaleString() } } },
+        scales: { x: xAxis(), y: yAxis(v => "$" + v.toLocaleString()) } }
+    }));
+    charts.push(new Chart(document.getElementById("c8"), {
+      type: "bar",
+      data: { labels: funcs, datasets: [
+        { label: "Gross expense", data: fExp, backgroundColor: s3 },
+        { label: "Net cost after fees and grants", data: fNet, backgroundColor: acc }] },
+      options: { indexAxis: "y", maintainAspectRatio: false, plugins: { legend: legend(), tooltip: { callbacks: { label: c => c.dataset.label + ": " + money(c.parsed.x) } } },
+        scales: { x: yAxis(v => "$" + v + "M", { beginAtZero: true }), y: { grid: { display: false }, ticks: { color: ink } } } }
+    }));
+    c1caption(); c3stats();
+  }
+
+  document.getElementById("b1-site").addEventListener("click", function () { basis = "site"; this.setAttribute("aria-pressed", "true"); document.getElementById("b1-cons").setAttribute("aria-pressed", "false"); build(); });
+  document.getElementById("b1-cons").addEventListener("click", function () { basis = "cons"; this.setAttribute("aria-pressed", "true"); document.getElementById("b1-site").setAttribute("aria-pressed", "false"); build(); });
+  document.querySelectorAll("[data-base]").forEach(b => b.addEventListener("click", function () {
+    baseIdx = +this.dataset.base;
+    document.querySelectorAll("[data-base]").forEach(x => x.setAttribute("aria-pressed", x === this ? "true" : "false"));
+    build();
+  }));
+  function start() { if (window.Chart) build(); else setTimeout(start, 60); }
+  start();
+  try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", build); } catch (e) {}
+  new MutationObserver(build).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
+</body>
+</html>
