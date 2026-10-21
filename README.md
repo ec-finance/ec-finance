@@ -5,6 +5,8 @@ An independent look at claims about the City of El Cerrito, California's finance
 - **`index.html`**: overview, summary and sources.
 - **`finance-pages.html`**: Part 1, a claim-by-claim check of the [Ira Sharenow's Finance pages](https://irasharenow100.github.io/portfolio/finance/), with interactive charts.
 - **`candidates.html`**: Part 2, financial statements by the six 2026 City Council candidates, checked with the same rubric, with Nextdoor screenshots linked from each claim.
+- **`v2026-10-20/`**: the site as first published, kept unchanged for reference. See the revisions log on the overview page for what changed.
+- **`questions.html`**: Part 3, longer answers: what is driving spending growth, how transfers between funds work, the FY2026 Successor Agency payment, and where the amended budget went unspent.
 - **`screenshots/`**: the Nextdoor screenshots. Other residents' names, photos and neighborhoods are blacked out, and the images carry no metadata.
 - **`el-cerrito-financial-statements-FY2014-FY2026.xlsx`**: the underlying workbook, covering fiscal years ending June 30, 2014 through 2026:
   - General Fund statements, budget variance by year, and Council-approved budget amendments
