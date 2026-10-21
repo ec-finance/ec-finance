@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Cerrito Finance Check · Candidates</title>
+<meta name="description" content="Financial claims by the 2026 El Cerrito City Council candidates, checked against the City's audited reports and budget updates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with full-width chart panels; claims ledgers as scrollable tables. Audit-ledger feel: cool paper, ink, one blue accent, semantic verdict colors. */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56636e;
+  --rule: #d6dde2;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --ok: #2f6b3c;
+  --ok-soft: #e4f0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ecd6;
+  --bad: #9b2f24;
+  --bad-soft: #f6e2df;
+  --series2: #c4672b;
+  --series3: #8a99a5;
+  --series4: #5b8c6a;
+  --series5: #b48a2c;
+  --series6: #7a5c99;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+    --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+    --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+    --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+  --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+  --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+  --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 26px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { font-size: 18px; max-width: 68ch; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.part { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--rule); padding-top: 18px; }
+.bottomline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.bl { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bl strong { font-size: 15px; }
+.bl span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.chip { display: inline-block; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+table.narrow { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+tr.group td { background: var(--bg); font-weight: 600; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); font-size: 13px; white-space: nowrap; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.chartbox { position: relative; height: 320px; width: 100%; }
+.chartbox.tall { height: 380px; }
+.caption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; flex-wrap: wrap; }
+.toggle button { font: 500 13px var(--font-body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; border-right: 1px solid var(--rule); }
+.toggle button:last-child { border-right: 0; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
+ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+.sources { font-size: 13px; color: var(--muted); }
+.sources li { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.sitenav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.sitenav a { text-decoration: none; }
+.sitenav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.sitenav a:hover { text-decoration: underline; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+a.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0; }
+a.card:hover { border-color: var(--accent); }
+a.card strong { font-family: var(--font-display); font-size: 19px; font-weight: 650; color: var(--accent); }
+a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.shots { display: block; margin-top: 6px; font-size: 13px; }
+.gallery { display: flex; flex-direction: column; gap: 28px; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
+.gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html" aria-current="page">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <div class="eyebrow">Part 2 · 2026 El Cerrito City Council candidates</div>
+  <h1>Financial claims by the 2026 candidates</h1>
+  <p class="lede">Statements about the City's finances by all six candidates, checked with the same rubric used for <a href="finance-pages.html">Ira Sharenow's Finance pages</a>.</p>
+</header>
+
+<section>
+    <p class="prose">Statements about the City's finances from ballot statements, campaign sites, the September 30, 2026 League of Women Voters forum and the candidates' own public Nextdoor posts and replies, checked with the same rubric. Forum quotes are lightly trimmed from the auto-generated captions. Nextdoor quotes are the candidates' own words; as of October 19, 2026, Gabe Quinto, Carolyn Wysinger, MJ Jawili and Forrest Lanning had no finance claims on Nextdoor to check. Asked on Nextdoor where her figures come from, White pointed to the City's ACFRs and quarterly General Fund updates (<a href="#shot-white-02">screenshot</a>).</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Candidate</th><th>Claim</th><th>Verdict</th><th>What the data shows</th></tr></thead>
+    <tbody>
+      <tr><td>Kimberly White</td><td>"El Cerrito currently spends about $3 million a year more than it brings in" (forum)</td><td><span class="chip bad">Not supported</span></td><td>Revenue exceeded expenditures FY2020–FY2025. Net change in fund balance was +$1.36M in FY2025 and −$1.08M in FY2026 (preliminary). $3M matches only the planned FY2026 draw after amendments.</td></tr>
+      <tr><td>Kimberly White</td><td>"A $3 million gap in a $58 million budget is a course correction of 5%"; "the Council has known about this for years and kept covering it with reserves" (Nextdoor, Oct. 17–18)<span class="shots">Screenshots: <a href="#shot-white-01">White post, Oct. 17</a>, <a href="#shot-white-04">White reply, Oct. 18</a></span></td><td><span class="chip bad">Not supported</span></td><td>The General Fund balance rose from −$0.1M (FY2020) to $24.3M (FY2025). Reserves were drawn in FY2024 (−$0.25M) and FY2026 (−$1.08M preliminary), not every year. $3M is the FY2026 draw as planned after amendments, not the result.</td></tr>
+      <tr><td>Kimberly White</td><td>"Whether El Cerrito's gap is $3 million, $2 million, or $1 million … the city is spending more than it brings in on an ongoing basis" (Nextdoor reply)<span class="shots">Screenshot: <a href="#shot-white-03">White reply, Oct. 18</a></span></td><td><span class="chip warn">Partly accurate</span></td><td>In the past, no: draws came in 2 of the last 6 years and were driven by one-time Council additions (FY2026: a one-time Successor Agency dissolution cost of over $1M, Swim Center $0.95M, AV system $0.32M, districting $0.25M). Looking ahead, partly: the adopted FY2026-28 budget projects draws that take the unassigned reserve to 18% and then 16%.</td></tr>
+      <tr><td>Kimberly White</td><td>"This particular budget sends [the unassigned reserve] below 17%" (forum)</td><td><span class="chip ok">Accurate</span></td><td>The adopted FY2026-28 budget projects 18% in FY2027 and 16% in FY2028. Today's level is above policy (26% in FY2025).</td></tr>
+      <tr><td>Kimberly White</td><td>"That leaves unassigned reserves under $10 million, below the city's own 17% minimum"; disaster and pension money "doesn't help if the economy turns" (Nextdoor, Oct. 6)<span class="shots">Screenshot: <a href="#shot-white-05">White post, Oct. 6</a></span></td><td><span class="chip warn">Premature</span></td><td>The City's Q4 estimate for June 2026 is 22% unassigned. The budget projects $10.4M (18%) for FY2027 and $9.8M (16%) for FY2028, so "under $10M, below 17%" describes the FY2028 projection, not today. Her point that the disaster reserve and the Section 115 pension trust aren't free for general use is correct. The "$72,000 more" August vote wasn't found in the packets reviewed.</td></tr>
+      <tr><td>Kimberly White</td><td>"Our budget is now balanced … by the use of reserves" (forum)</td><td><span class="chip warn">Partly accurate</span></td><td>FY2024 (−$0.25M) and FY2026 (−$1.08M) drew on reserves, mainly for Council-approved one-time items; FY2025 added $1.36M.</td></tr>
+      <tr><td>White / Nowinski</td><td>"$80.4 million unfunded pension liability … only the minimum payments" (campaign site)</td><td><span class="chip ok">Accurate</span></td><td>CalPERS' June 30, 2025 valuations show $80.35M unfunded across both plans. Beyond required payments, the City has put $3M into a pension trust ($1M in FY2024).</td></tr>
+      <tr><td>White / Nowinski</td><td>"El Cerrito spends 20% more per resident than Albany" (campaign site, videos, forum, Nextdoor)<span class="shots">Screenshots: <a href="#shot-white-06">White post, Sept. 17</a>, <a href="#shot-nowinski-02">Nowinski reply, Oct. 7</a></span></td><td><span class="chip bad">Outdated</span></td><td>State Controller data: 32% more in FY2019, 7% more in FY2024 ($2,439 vs. $2,281). Albany's per-resident spending grew 47% in that period, El Cerrito's 19%. White's Sept. 17 Nextdoor post cites $2,200 vs. $1,838 without a source or year.</td></tr>
+      <tr><td>Wally Nowinski</td><td>"We spend millions of dollars out of the reserves for emergency pool repairs" (forum)</td><td><span class="chip warn">Overstated</span></td><td>Pool repair $500K (FY2025) and Swim Center $945K (FY2026): about $1.45M over two years.</td></tr>
+      <tr><td>Wally Nowinski</td><td>Incumbents "voted to spend out of reserves to fund a special election in June"; "an estimated $80k … instead of November when it would be free" (Nextdoor, Oct. 1 and 10; shared by White)<span class="shots">Screenshots: <a href="#shot-nowinski-03">Nowinski post, Oct. 1</a>, <a href="#shot-nowinski-01">Nowinski reply, Oct. 10</a></span></td><td><span class="chip ok">Mostly accurate</span></td><td>The FY2026 Q4 update lists $80,163 in special election costs among Council-approved amendments. "Free" overstates it: cities are normally billed for measures on a consolidated November ballot too, though usually for much less.</td></tr>
+      <tr><td>Wally Nowinski</td><td>The City dips into reserves for fire engines and "predictable raises" (forum)</td><td><span class="chip ok">Accurate</span></td><td>Fire truck set-aside $380K (FY2025) and $1.5M one-time fire equipment (FY2027-28); labor contract additions $391K (FY2025) and $120K (FY2026).</td></tr>
+      <tr><td>Gabe Quinto</td><td>"We have turned around our budget" (forum)</td><td><span class="chip ok">Accurate</span></td><td>General Fund balance went from −$0.1M (FY2020) to $24.3M (FY2025); short-term borrowing ended; high-risk designation removed.</td></tr>
+      <tr><td>Gabe Quinto</td><td>"Right now we're at 29–30% in reserves" (forum)</td><td><span class="chip ok">Accurate</span></td><td>Matches the City's adopted-budget projection (29%). The audited FY2025 level was higher (41% including the disaster reserve).</td></tr>
+      <tr><td>Gabe Quinto</td><td>"We do not overspend … we are living within our means" (forum)</td><td><span class="chip warn">Partly accurate</span></td><td>Structural position has improved and reserves are above policy, but spending exceeded the original budget in FY2024–26 and FY2026 drew $1.1M from reserves.</td></tr>
+      <tr><td>Quinto, Wysinger</td><td>S&amp;P raised the City's bond rating to A+ (ballot statements)</td><td><span class="chip warn">Partly accurate</span></td><td>Per the rating history on Ira Sharenow's Finance pages, A+ is the rating on the sales tax revenue bonds. The City's underlying general rating (on its certificates of participation) is A−. Both were upgraded in 2025.</td></tr>
+      <tr><td>Carolyn Wysinger</td><td>"Our highest revenue stream is the real estate transfer tax" (forum)</td><td><span class="chip bad">Inaccurate</span></td><td>FY2025: property tax $18.9M, sales tax $12.1M, utility users tax $4.2M, transfer tax $3.2M. The point that it is the most volatile is fair.</td></tr>
+      <tr><td>Carolyn Wysinger</td><td>Finance staff forecast transfer-tax revenue conservatively (forum)</td><td><span class="chip ok">Accurate</span></td><td>Transfer tax beat budget by 7% in FY2025 and 13% in FY2026.</td></tr>
+      <tr><td>MJ Jawili</td><td>The City is "doing better with its finances" since the State Auditor list (forum)</td><td><span class="chip ok">Accurate</span></td><td>Consistent with the reserve rebuild, the 2024 removal of the high-risk designation and the rating upgrades.</td></tr>
+      <tr><td>MJ Jawili</td><td>"30% reserves … between the general fund and emergency fund" (forum)</td><td><span class="chip ok">Accurate</span></td><td>That is the policy target (17% + 13%); the audited FY2025 level was higher.</td></tr>
+      <tr><td>Forrest Lanning</td><td>Spend within means; build a rainy-day fund for a major earthquake (forum)</td><td><span class="chip info">No checkable claim</span></td><td>Positions rather than factual claims. The City's disaster reserve is $7.5M (13% of spending).</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="screenshots">
+  <h2>Nextdoor screenshots</h2>
+  <p class="prose">Captured October 19, 2026 from the candidates' public Nextdoor posts and replies. Names, photos and neighborhoods of other residents are blacked out, as are the candidates' own neighborhood labels. The original thread for the first four is <a href="https://nextdoor.com/p/P9yTJ9QTY9ZW">here</a> (Nextdoor login required).</p>
+  <div class="gallery">
+  <figure id="shot-white-01">
+    <a href="screenshots/white-01-budget-cut-post.png"><img src="screenshots/white-01-budget-cut-post.png" width="800" height="285" loading="lazy" alt="Kimberly White, Nextdoor post, Oct. 17, 2026: &quot;a $3 million gap in a $58 million budget is a course correction of 5%&quot;."></a>
+    <figcaption>Kimberly White, Nextdoor post, Oct. 17, 2026: "a $3 million gap in a $58 million budget is a course correction of 5%".</figcaption>
+  </figure>
+  <figure id="shot-white-02">
+    <a href="screenshots/white-02-reply-sources-acfr.png"><img src="screenshots/white-02-reply-sources-acfr.png" width="800" height="190" loading="lazy" alt="Kimberly White, reply in the same thread, Oct. 18, 2026: her numbers come from the City's ACFRs and quarterly General Fund budget updates."></a>
+    <figcaption>Kimberly White, reply in the same thread, Oct. 18, 2026: her numbers come from the City's ACFRs and quarterly General Fund budget updates.</figcaption>
+  </figure>
+  <figure id="shot-white-03">
+    <a href="screenshots/white-03-reply-ongoing-gap.png"><img src="screenshots/white-03-reply-ongoing-gap.png" width="800" height="157" loading="lazy" alt="Kimberly White, reply in the same thread, Oct. 18, 2026: &quot;the city is spending more than it brings in on an ongoing basis&quot;."></a>
+    <figcaption>Kimberly White, reply in the same thread, Oct. 18, 2026: "the city is spending more than it brings in on an ongoing basis".</figcaption>
+  </figure>
+  <figure id="shot-white-04">
+    <a href="screenshots/white-04-reply-58M-5pct.png"><img src="screenshots/white-04-reply-58M-5pct.png" width="800" height="277" loading="lazy" alt="Kimberly White, reply in the same thread, Oct. 18, 2026: the &quot;roughly $3 million gap&quot; and &quot;kept covering it with reserves&quot;."></a>
+    <figcaption>Kimberly White, reply in the same thread, Oct. 18, 2026: the "roughly $3 million gap" and "kept covering it with reserves".</figcaption>
+  </figure>
+  <figure id="shot-white-05">
+    <a href="screenshots/white-05-reserves-post-oct6.png"><img src="screenshots/white-05-reserves-post-oct6.png" width="760" height="314" loading="lazy" alt="Kimberly White, Nextdoor post, Oct. 6, 2026: &quot;What City Hall Isn't Telling You About Our Reserves&quot;."></a>
+    <figcaption>Kimberly White, Nextdoor post, Oct. 6, 2026: "What City Hall Isn't Telling You About Our Reserves".</figcaption>
+  </figure>
+  <figure id="shot-white-06">
+    <a href="screenshots/white-06-per-capita-albany-sep17.png"><img src="screenshots/white-06-per-capita-albany-sep17.png" width="760" height="275" loading="lazy" alt="Kimberly White, Nextdoor post, Sept. 17, 2026: El Cerrito spends about $2,200 per person, Albany $1,838."></a>
+    <figcaption>Kimberly White, Nextdoor post, Sept. 17, 2026: El Cerrito spends about $2,200 per person, Albany $1,838.</figcaption>
+  </figure>
+  <figure id="shot-nowinski-03">
+    <a href="screenshots/nowinski-03-post-oct1-special-election.png"><img src="screenshots/nowinski-03-post-oct1-special-election.png" width="760" height="582" loading="lazy" alt="Wally Nowinski, Nextdoor post, Oct. 1, 2026 (shared by Kimberly White on Oct. 10): incumbents &quot;voted to spend out of reserves to fund a special election in June&quot;."></a>
+    <figcaption>Wally Nowinski, Nextdoor post, Oct. 1, 2026 (shared by Kimberly White on Oct. 10): incumbents "voted to spend out of reserves to fund a special election in June".</figcaption>
+  </figure>
+  <figure id="shot-nowinski-01">
+    <a href="screenshots/nowinski-01-reply-80k-june-election.png"><img src="screenshots/nowinski-01-reply-80k-june-election.png" width="470" height="230" loading="lazy" alt="Wally Nowinski, Nextdoor reply, Oct. 10, 2026: &quot;an estimated $80k to have the election in June instead of November when it would be free&quot;."></a>
+    <figcaption>Wally Nowinski, Nextdoor reply, Oct. 10, 2026: "an estimated $80k to have the election in June instead of November when it would be free".</figcaption>
+  </figure>
+  <figure id="shot-nowinski-02">
+    <a href="screenshots/nowinski-02-reply-20pct-albany.png"><img src="screenshots/nowinski-02-reply-20pct-albany.png" width="430" height="100" loading="lazy" alt="Wally Nowinski, Nextdoor reply, Oct. 7, 2026: &quot;we spend ~20% more per capita than Albany&quot;."></a>
+    <figcaption>Wally Nowinski, Nextdoor reply, Oct. 7, 2026: "we spend ~20% more per capita than Albany".</figcaption>
+  </figure>
+  </div>
+</section>
+
+<footer>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html" aria-current="page">Part 2 · Candidates</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Corrections welcome.</p>
+</footer>
+
+</div>
+
+</body>
+</html>
