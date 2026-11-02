@@ -58,6 +58,7 @@ body {
 }
 .wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
 .prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+p.prose { display: block; }
 header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
 .eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
@@ -98,6 +99,26 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
 .stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
 .twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.sidebar { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sidebar h4 { margin: 0; font-size: 16px; }
+.sidebar table { min-width: 0; font-size: 13px; }
+.sidebar td, .sidebar th { padding: 8px 10px; }
+.fund { border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+.fund + .fund { margin-top: 8px; }
+.fund summary { cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; font-weight: 600; list-style: none; }
+.fund summary::-webkit-details-marker { display: none; }
+.fund summary span::before { content: "\25B8"; display: inline-block; width: 1.1em; color: var(--muted); }
+.fund[open] summary span::before { content: "\25BE"; }
+.fund summary b { font-family: var(--font-data); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fund table { min-width: 0; }
+.fund td { padding: 8px 14px; }
+.fund tr:last-child td { border-bottom: 0; }
+.fund.taxpayer { border: 2px solid var(--accent); }
+.fund.taxpayer summary { color: var(--accent); }
+.fund p { margin: 0; padding: 0 14px 12px; font-size: 14px; line-height: 1.5; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.projects h4 { margin: 0 0 4px; font-size: 16px; }
+.projects .caption { margin: 0 0 10px; }
 .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
 ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
 a { color: var(--accent); }
@@ -120,6 +141,10 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
 .gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
 .gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.biogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.biogrid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.biogrid img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.biogrid figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
@@ -128,7 +153,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 <div class="wrap">
 
 <header>
-  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html" aria-current="page">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html" aria-current="page">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
   <div class="eyebrow">Part 3 · Questions and explainers</div>
   <h1>Questions and explainers</h1>
   <p class="lede">Longer answers to questions that came up while checking the claims on <a href="finance-pages.html">Ira Sharenow's Finance pages</a> and by <a href="candidates.html">the candidates</a>.</p>
@@ -333,8 +358,8 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 </section>
 
 <footer>
-  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html" aria-current="page">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
-  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Oct. 21, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html" aria-current="page">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Nov. 2, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
 </footer>
 
 </div>

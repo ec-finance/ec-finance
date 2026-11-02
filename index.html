@@ -58,6 +58,7 @@ body {
 }
 .wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
 .prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+p.prose { display: block; }
 header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
 .eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
@@ -98,6 +99,26 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
 .stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
 .twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.sidebar { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sidebar h4 { margin: 0; font-size: 16px; }
+.sidebar table { min-width: 0; font-size: 13px; }
+.sidebar td, .sidebar th { padding: 8px 10px; }
+.fund { border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+.fund + .fund { margin-top: 8px; }
+.fund summary { cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; font-weight: 600; list-style: none; }
+.fund summary::-webkit-details-marker { display: none; }
+.fund summary span::before { content: "\25B8"; display: inline-block; width: 1.1em; color: var(--muted); }
+.fund[open] summary span::before { content: "\25BE"; }
+.fund summary b { font-family: var(--font-data); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fund table { min-width: 0; }
+.fund td { padding: 8px 14px; }
+.fund tr:last-child td { border-bottom: 0; }
+.fund.taxpayer { border: 2px solid var(--accent); }
+.fund.taxpayer summary { color: var(--accent); }
+.fund p { margin: 0; padding: 0 14px 12px; font-size: 14px; line-height: 1.5; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.projects h4 { margin: 0 0 4px; font-size: 16px; }
+.projects .caption { margin: 0 0 10px; }
 .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
 ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
 a { color: var(--accent); }
@@ -120,6 +141,10 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
 .gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
 .gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.biogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.biogrid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.biogrid img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.biogrid figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
@@ -128,7 +153,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 <div class="wrap">
 
 <header>
-  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
   <div class="eyebrow">El Cerrito General Fund · FY2013-14 to FY2025-26 · audited reports, Council budget reports, CalPERS, State Controller</div>
   <h1>El Cerrito Finance Check</h1>
   <p class="lede">Claims about the City of El Cerrito's finances, from <a href="https://irasharenow100.github.io/portfolio/finance/">Ira Sharenow's Finance pages</a> and from the six 2026 City Council candidates, tested against the City's audited annual reports, Council budget updates, CalPERS valuations and State Controller data.</p>
@@ -137,8 +162,10 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 <section>
   <div class="cards">
     <a class="card" href="finance-pages.html"><strong>Part 1 · Ira Sharenow's Finance pages</strong><span>20 claims from Ira Sharenow's Finance pages and his Nextdoor posts, with eight topic sections and interactive charts. 10 hold up · 4 partly accurate or framed · 5 misleading, unsupported or missing context · 1 no checkable claim.</span></a>
-    <a class="card" href="candidates.html"><strong>Part 2 · The candidates</strong><span>20 statements from forums, ballot statements, campaign sites and Nextdoor, with screenshots. 8 hold up · 6 partly accurate or framed · 5 misleading, unsupported or missing context · 1 no checkable claim.</span></a>
+    <a class="card" href="candidates.html"><strong>Part 2 · The candidates</strong><span>27 statements from forums, ballot statements, campaign sites, mailers and Nextdoor, with screenshots. 9 hold up · 7 partly accurate or framed · 10 misleading, unsupported or missing context · 1 no checkable claim.</span></a>
     <a class="card" href="questions.html"><strong>Part 3 · Questions</strong><span>What's driving spending growth, overall and outside public safety; how transfers between funds work; the FY2026 Successor Agency payment; and where the amended budget went unspent.</span></a>
+    <a class="card" href="mailers.html"><strong>Part 4 · Campaign mailers</strong><span>The "+41% since 2022" flyer with other windows and neighboring cities; the A+ rating, the $13.1 million and what the street grants cover; and the outside water-heater mailer.</span></a>
+    <a class="card" href="140-million.html"><strong>Part 5 · The $140 million</strong><span>The same undocumented figure in both White's and Nowinski's bios, with the record for each.</span></a>
     <a class="card" href="el-cerrito-financial-statements-FY2014-FY2026.xlsx"><strong>The workbook</strong><span>General Fund and citywide statements, budget variances, pension and statistical schedules, FY2014–FY2026, with source notes and tie-out checks (.xlsx).</span></a>
   </div>
 </section>
@@ -149,7 +176,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     <div class="bl"><span class="chip ok">Mostly accurate facts</span><strong>The pages' numbers are largely real.</strong><span>Most figures trace to audited reports. The history they document (negative reserves 2017–2020, going-concern audit opinions, a "high risk" State Auditor designation, annual short-term borrowing) did happen.</span></div>
     <div class="bl"><span class="chip warn">Framing choices</span><strong>A few key charts and comparisons lean one way.</strong><span>The headline chart changes accounting basis in its final year. The spending-vs-inflation test starts at the 2021 pandemic low. The "$2.9M average" budget revision mixes bases and uses only the three most recent years.</span></div>
     <div class="bl"><span class="chip bad">Omission</span><strong>The recovery is documented unevenly.</strong><span>The credit rating page records a strong recovery, but the State Auditor page stops in 2021 and leaves out that the high-risk designation was removed in December 2024.</span></div>
-    <div class="bl"><span class="chip info">Real pressures</span><strong>Two long-term concerns hold up.</strong><span>The recovery was mostly revenue-driven: voter-approved taxes, federal relief and tax growth. Pensions are a genuine weight; El Cerrito's liability relative to revenue is 2nd highest of 426 California cities, and the City's latest forecast (Sept. 2026) keeps unassigned reserves only about $2M above the 17% floor for the next few years.</span></div>
+    <div class="bl"><span class="chip info">Real pressures</span><strong>Two long-term concerns hold up.</strong><span>The recovery was mostly revenue-driven: voter-approved taxes, federal relief and tax growth. Pensions are a genuine weight; El Cerrito's liability relative to revenue is 2nd highest of 426 California cities, and the City's latest forecast (Sept. 2026) keeps unassigned reserves only about $2M above the 17% goal for the next few years.</span></div>
   </div>
 </section>
 
@@ -159,23 +186,30 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     <li>City of El Cerrito CAFRs/ACFRs FY2014–FY2025 (General Fund budget-to-actual schedules, balance sheets, government-wide statements, statistical section), <a href="https://www.elcerrito.gov/Archive.aspx?AMID=76">elcerrito.gov</a>.</li>
     <li>Q4 General Fund budget updates: Sept. 17, 2024 (FY2024 Table 1), Sept. 16, 2025 (FY2025 Table 5), Sept. 15, 2026 (FY2026 Table 5 and Table 6, unaudited, with the long-range forecast in Graphs 2 and 3); FY2022 and FY2023 mid-year updates; FY2025-26 Mid-Year Budget Amendments (Feb. 17, 2026, item 8.A, including the Finance Director's Successor Agency memo); FY2026-27/2027-28 Budget in Brief.</li>
     <li>CalPERS Annual Valuation Reports, City of El Cerrito Miscellaneous and Safety plans, June 30, 2024 and 2025.</li>
-    <li>California State Controller, By the Numbers: city expenditures per capita, revenues per capita, net pension liability (FY2019, FY2024).</li>
+    <li>California State Controller, By the Numbers: city expenditures per capita, revenues per capita, net pension liability (FY2019, FY2024); Financial Transactions Report expenditure detail for El Cerrito and Albany (dataset ju3w-4gxp) and the FY2024 services checklist (dataset 8nra-c2cw).</li>
     <li>U.S. BLS CPI-U, San Francisco-Oakland-Hayward (CUURA422SA0), via FRED.</li>
     <li>California State Auditor reports <a href="https://information.auditor.ca.gov/reports/2020-803/index.html">2020-803</a> and <a href="https://www.auditor.ca.gov/reports/2024-801">2024-801</a>; GFOA, <a href="https://gfoa.org/materials/achieving-a-structurally-balanced-budget">Achieving a Structurally Balanced Budget</a>.</li>
     <li>Candidate statements: City Clerk candidate packets (as reproduced on the portfolio site's candidates page), <a href="https://www.2votes4changeec.com/issues">2votes4changeec.com</a>, the <a href="https://www.youtube.com/watch?v=OcbA9xazYY0">Sept. 30, 2026 candidate forum</a>, and the candidates' public Nextdoor posts and replies (reviewed Oct. 19, 2026).</li>
+    <li>Campaign mailers (Oct. 2026): Nowinski/White marked ballot (paid for by the two candidates' committees, FPPC #1494378 and #1493337); Quinto/Wysinger "Ticket for Progress"; Committee for Jobs and the Economy water-heater mailer. Campaign sites <a href="https://www.gabe-quinto.com/accomplishments">gabe-quinto.com</a> and <a href="https://www.2votes4changeec.com/">2votes4changeec.com</a>, including Wayback Machine captures of Aug. 3 and Sept. 18, 2026.</li>
+    <li>Neighbor cities' year-end reports: Pinole FY2021-22 and FY2025-26 Q4 Financial Reports (Sept. 20, 2022; Sept. 15, 2026); Richmond FY2021-22 Year-End Clean-Up (Oct. 18, 2022) and FY2025-26 Q4 report, Attachment 1 (Sept. 15, 2026). BLS Employment Cost Index, state and local government (CIU3010000000000I); BLS CPI-U San Francisco–Oakland–Hayward (CUURS49BSA0).</li>
+    <li>Credit ratings and debt: City of El Cerrito press release, Sept. 9, 2025; FY2014 and FY2025 ACFRs. Streets: Caltrans District 4 allocations (Aug. 31, 2026); Caltrans cooperative agreement, Dec. 2, 2025 Council agenda report and minutes (item 7.E); Council agenda reports of Sept. 19, 2023 (item 7.H, Richmond Street) and Oct. 17, 2023 (item 7.I, Del Norte); proposed FY2026-27/2027-28 budget, project C3080; Richmond Street project FAQ. Water heaters: Air District Regulation 9, Rule 6 and its July 14, 2026 draft amendments; Palo Alto Daily Post (May 13 and July 15, 2026); Canary Media; Sierra Club SF Bay.</li>
+    <li>$140 million: BART adopted budgets and the MTC Financial Efficiency Review; Collage.com careers page (Wayback Machine, March 2020 and April 2021), CNBC (April 25, 2017) and Dead Pixels Society (Oct. 2022).</li>
     <li>Pages reviewed: <a href="https://irasharenow100.github.io/portfolio/finance/">irasharenow100.github.io/portfolio/finance</a> (as of Oct. 19, 2026), and Ira Sharenow's public Nextdoor budget posts from Sept. 11 to Oct. 18, 2026.</li>
   </ul>
   <h3 id="revisions">Revisions</h3>
   <ul class="sources">
+    <li><strong>Nov. 2, 2026.</strong> Added Part 4 (Campaign mailers): the Nowinski/White "+41%" flyer with other windows and neighbor-city comparisons, the Quinto/Wysinger mailer (A+ and A− ratings, the $13.1 million, and how the Del Norte and Richmond Street projects are funded), and the outside water-heater mailer. Added Part 5, on the two "$140 million" claims. Added seven claims to Part 2. The A+ rating verdict is unchanged (Partly accurate) but is now sourced to the City's press release, with the bond amounts and the 2016 rating for context. The previous version, last updated Oct. 23, 2026, is kept unchanged at <a href="v2026-10-23/">v2026-10-23</a>.</li>
     <li><strong>Original version.</strong> The site as first published, before the Oct. 20, 2026 revision, is kept unchanged at <a href="v2026-10-20/">v2026-10-20</a>.</li>
+    <li><strong>Oct. 23, 2026.</strong> The "20% more per resident than Albany" verdict changed from Outdated to Overstated. Section 6 now compares total and operating spending: the operating gap was 14% in FY2024 (27% in FY2019), mostly public safety, with police staffing and the Kensington fire contract as context.</li>
+    <li><strong>Oct. 21, 2026 (correction).</strong> Section 4 had dated the 17% reserve and 13% disaster-fund policy to August 2023. The August 2023 action created the disaster fund and the pension trust; the 17% and 13% levels were adopted in November 2024. The reserves chart's policy line now shows 10% for FY2024. Added that the policy treats 17% as a goal, with a 10% floor for deficit budgets. No verdicts changed.</li>
     <li><strong>Oct. 21, 2026.</strong> Added Part 3 (Questions), including what is driving spending growth overall and outside public safety. Moved the transfers, Successor Agency and unspent-budget explainers there from Part 1. No verdicts changed.</li>
     <li><strong>Oct. 20, 2026.</strong> Reserve projections now use the City's Sept. 15, 2026 year-end forecast, which keeps unassigned reserves above 17% through FY2037-38, in place of the June budget's projection (16% in FY2028). Verdicts changed: White, "this particular budget sends [reserves] below 17%" (Accurate → Outdated); White, "under $10 million, below the city's own 17% minimum" (Premature → Not supported); White, "spending more than it brings in on an ongoing basis" (Partly accurate → Overstated); Ira Sharenow, "reserves falling below the city's own target" (Premature → Not supported). Also added: transfers explainer, Successor Agency note, and unspent budget by department.</li>
   </ul>
 </section>
 
 <footer>
-  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
-  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Oct. 21, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
+  <nav class="sitenav" aria-label="Site"><a href="index.html" aria-current="page">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Nov. 2, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
 </footer>
 
 </div>

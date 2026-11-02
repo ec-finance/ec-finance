@@ -58,6 +58,7 @@ body {
 }
 .wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
 .prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+p.prose { display: block; }
 header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
 .eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
@@ -98,6 +99,26 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
 .stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
 .twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.sidebar { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sidebar h4 { margin: 0; font-size: 16px; }
+.sidebar table { min-width: 0; font-size: 13px; }
+.sidebar td, .sidebar th { padding: 8px 10px; }
+.fund { border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+.fund + .fund { margin-top: 8px; }
+.fund summary { cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; font-weight: 600; list-style: none; }
+.fund summary::-webkit-details-marker { display: none; }
+.fund summary span::before { content: "\25B8"; display: inline-block; width: 1.1em; color: var(--muted); }
+.fund[open] summary span::before { content: "\25BE"; }
+.fund summary b { font-family: var(--font-data); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fund table { min-width: 0; }
+.fund td { padding: 8px 14px; }
+.fund tr:last-child td { border-bottom: 0; }
+.fund.taxpayer { border: 2px solid var(--accent); }
+.fund.taxpayer summary { color: var(--accent); }
+.fund p { margin: 0; padding: 0 14px 12px; font-size: 14px; line-height: 1.5; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.projects h4 { margin: 0 0 4px; font-size: 16px; }
+.projects .caption { margin: 0 0 10px; }
 .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
 ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
 a { color: var(--accent); }
@@ -120,6 +141,10 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
 .gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
 .gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.biogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.biogrid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.biogrid img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.biogrid figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
@@ -128,7 +153,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 <div class="wrap">
 
 <header>
-  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
   <div class="eyebrow">Part 1 · El Cerrito General Fund · FY2013-14 to FY2025-26</div>
   <h1>An analysis of the claims on Ira Sharenow's Finance pages</h1>
   <p class="lede">This page tests the claims made in <a href="https://irasharenow100.github.io/portfolio/finance/">Ira Sharenow's Finance pages</a> against the City's audited annual reports, Council budget updates, CalPERS valuations and State Controller data. Candidates' own statements are checked on the <a href="candidates.html">candidates page</a>.</p>
@@ -266,13 +291,14 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     <p>The General Fund went from a negative balance in FY2019–2020 to $24M in FY2025. Policy changed, but mostly after the rebuild had happened.</p>
     <p><strong>Before 2020.</strong> The City ran deficits in eight of eleven years from FY2010 to FY2020 (State Auditor). Its policy asked for a reserve of only 10% of spending, and it never reached that. Dissolution of the redevelopment agency in 2012 removed about $1M a year of support for City functions, and the General Fund absorbed $1.3M of the state clawback. Pension contributions rose by more than half between FY2016 and FY2020. The City borrowed $5M–$9M each year (TRANs) to cover cash flow.</p>
     <p><strong>FY2021 to FY2023.</strong> The rebuild was revenue-driven. Voters approved a real property transfer tax (Measure V, November 2018), which has brought in $3.2M–$5.3M a year since FY2020. The City moved $6.1M of federal pandemic relief (ARPA) into the General Fund in FY2021–22. Revenue beat the original budget by $3.9M–$7.6M a year as the economy recovered, while pandemic closures and vacancies held spending down. The fund balance rose from −$0.1M to $23.1M in three years.</p>
-    <p><strong>Policy since.</strong> In August 2023 the Council amended its financial policy: 17% of spending held as unassigned reserve, plus 13% in a separate Emergency Disaster Relief Fund. Separately, the City has built a Section 115 pension trust that now holds $3M.</p>
-    <p><strong>The outlook has moved.</strong> The February 2026 mid-year forecast warned reserves could fall below 17%. The budget adopted in June projected 18% in FY2027 and 16% in FY2028. After FY2026 ended $2.1M better than planned, the Sept. 15, 2026 year-end update projects the unassigned reserve staying above 17% through FY2037-38, but only about $2M above the floor for the next few years.</p>
+    <p><strong>Policy since.</strong> In August 2023 the Council set aside $9M of General Fund balance as an Emergency Disaster Relief Fund and $1M to start a Section 115 pension trust, and changed the policy so year-end surpluses go first to the reserve, then the disaster fund, then at least a third of what remains to pension liabilities. In November 2024 it raised the reserve goal from 10% to 17% of spending and set the disaster fund at 13%; the disaster fund stood at $7.5M by June 2025, down from $9.0M. The pension trust now holds $3M.</p>
+    <p><strong>A goal, not a hard minimum.</strong> The policy calls 17% a goal. It lets the Council adopt a deficit budget as long as the five-year forecast keeps the reserve at or above 10%, and requires a plan to restore it only if it falls below 10%. Spending from the disaster fund needs a Council majority, or the City Manager in an emergency with ratification afterward. In March 2026 the Financial Advisory Board recommended making 17% the trigger for a restoration plan; on staff's recommendation the Council approved only minor edits, keeping the existing wording.</p>
+    <p><strong>The outlook has moved.</strong> The February 2026 mid-year forecast warned reserves could fall below 17%. The budget adopted in June projected 18% in FY2027 and 16% in FY2028. After FY2026 ended $2.1M better than planned, the Sept. 15, 2026 year-end update projects the unassigned reserve staying above 17% through FY2037-38, but only about $2M above the 17% goal for the next few years.</p>
   </div>
   <div class="panel">
     <h3>Total General Fund balance ($M, bars) and unassigned reserve as % of expenditures (line)</h3>
     <div class="chartbox tall"><canvas id="c4" aria-label="Reserves chart"></canvas></div>
-    <p class="caption">Unassigned excludes the Emergency Disaster Relief reserve ($9.0M FY2024, $7.5M FY2025) and the pension trust. FY2026 balance is the Q4 report's unaudited estimate; its 22% unassigned figure is the City's. FY2027 and FY2028 are read from the City's Sept. 15, 2026 forecast chart (about $12.1M, roughly 21% and 20%); the June adopted budget had projected 18% and 16%. The policy floor was 10% before August 2023. GFOA's two-month guideline (16.7%) applies to all unrestricted balance, which would include the disaster reserve; on that measure the City stays near 29%.</p>
+    <p class="caption">Unassigned excludes the Emergency Disaster Relief reserve ($9.0M FY2024, $7.5M FY2025) and the pension trust. FY2026 balance is the Q4 report's unaudited estimate; its 22% unassigned figure is the City's. FY2027 and FY2028 are read from the City's Sept. 15, 2026 forecast chart (about $12.1M, roughly 21% and 20%); the June adopted budget had projected 18% and 16%. The reserve goal was 10% until November 2024, then 17%; the policy's hard floor for deficit budgets is 10%. GFOA's two-month guideline (16.7%) applies to all unrestricted balance, which would include the disaster reserve; on that measure the City stays near 29%.</p>
   </div>
 </section>
 <section id="s5">
@@ -304,6 +330,30 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     <div class="chartbox"><canvas id="c7" aria-label="Spending per capita"></canvas></div>
     <p class="caption">Source: California State Controller, City Expenditures Per Capita (dataset ykhf-vfsr). Emeryville and Berkeley omitted for scale ($7,935 and $4,814 in FY2024). Cities that contract out police or fire (Hercules, Pleasant Hill) are not like-for-like.</p>
   </div>
+  <h3>El Cerrito and Albany: total vs. operating spending</h3>
+  <p class="prose">How big the gap with Albany is depends on whether capital projects and debt are counted. Albany's capital spending jumped after 2019, which narrows the total comparison more than the day-to-day one.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>$ per resident, governmental funds</th><th class="num">El Cerrito FY2019</th><th class="num">Albany FY2019</th><th class="num">El Cerrito FY2024</th><th class="num">Albany FY2024</th></tr></thead>
+    <tbody>
+      <tr><td>Public safety (police, fire)</td><td class="num">$950</td><td class="num">$588</td><td class="num">$1,121</td><td class="num">$721</td></tr>
+      <tr><td>General government</td><td class="num">$234</td><td class="num">$343</td><td class="num">$296</td><td class="num">$533</td></tr>
+      <tr><td>Culture and leisure</td><td class="num">$233</td><td class="num">$164</td><td class="num">$243</td><td class="num">$230</td></tr>
+      <tr><td>Transportation</td><td class="num">$154</td><td class="num">$153</td><td class="num">$209</td><td class="num">$194</td></tr>
+      <tr><td>Community development</td><td class="num">$99</td><td class="num">$64</td><td class="num">$169</td><td class="num">$112</td></tr>
+      <tr class="group"><td>Operating spending (El Cerrito vs. Albany)</td><td class="num">$1,671</td><td class="num">$1,313 (+27%)</td><td class="num">$2,037</td><td class="num">$1,790 (+14%)</td></tr>
+      <tr><td>Capital outlay</td><td class="num">$198</td><td class="num">$95</td><td class="num">$204</td><td class="num">$332</td></tr>
+      <tr><td>Debt service</td><td class="num">$75</td><td class="num">$75</td><td class="num">$60</td><td class="num">$70</td></tr>
+      <tr class="group"><td>Total (El Cerrito vs. Albany)</td><td class="num">$1,943</td><td class="num">$1,482 (+31%)</td><td class="num">$2,301</td><td class="num">$2,191 (+5%)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">State Controller Financial Transactions Reports (dataset ju3w-4gxp), governmental funds only (enterprise and internal service funds excluded), divided by the Controller's population estimates (El Cerrito 25,459 and 25,700; Albany 19,393 and 20,325). Percentages compare El Cerrito with Albany. The all-funds per-capita series in the chart above gives slightly different totals (32% and 7%).</p>
+  <ul class="tight">
+    <li><strong>The operating gap is mostly public safety:</strong> about $400 per resident more in FY2024. El Cerrito reported 37 sworn police officers to Albany's 22 in the Controller's FY2024 services checklist (about 1.4 vs. 1.1 per 1,000 residents). The State Auditor's 2021 audit likewise found El Cerrito's police staffing ratio above county and state averages.</li>
+    <li><strong>Fire covers more than El Cerrito.</strong> The department also serves the Kensington Fire Protection District under contract, and Kensington reimburses a share of costs (for example, one-third of the FY2027-28 breathing-equipment replacement). Dividing fire costs by El Cerrito's population alone overstates the per-resident comparison.</li>
+    <li><strong>El Cerrito spends less on general government:</strong> $296 per resident vs. Albany's $533 in FY2024.</li>
+  </ul>
 </section>
 <section id="s7">
   <h2>7. Where the money goes, and what the Council can change</h2>
@@ -332,7 +382,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
   <h2>8. Should every year's budget balance?</h2>
   <div class="prose">
     <p>Government finance standards don't ask for that. GFOA's best practice is structural balance: recurring revenues should cover recurring expenses. Reserves are meant to absorb shocks and pay for one-time items, within a policy floor.</p>
-    <p>Two conditions make using reserves defensible. Recurring costs (raises, staffing) must not be funded with one-time money; the City says its FY2027-28 budget keeps ongoing revenue above ongoing spending, which can't be checked without the full budget book. And the reserve floor has to hold. The June budget projected a dip to 16% in FY2028, about $0.6M below target. After FY2026 came in $2.1M better than planned, the Sept. 15 forecast no longer shows a dip, though the cushion is only about $2M for the next few years. That is small relative to the budget, but it comes as pension payments rise and the revenue base leans on volatile transfer taxes.</p>
+    <p>Two conditions make using reserves defensible. Recurring costs (raises, staffing) must not be funded with one-time money; the City says its FY2027-28 budget keeps ongoing revenue above ongoing spending, which can't be checked without the full budget book. And the reserve has to stay near the 17% goal. The June budget projected a dip to 16% in FY2028, about $0.6M below target. After FY2026 came in $2.1M better than planned, the Sept. 15 forecast no longer shows a dip, though the cushion is only about $2M for the next few years. That is small relative to the budget, but it comes as pension payments rise and the revenue base leans on volatile transfer taxes.</p>
   </div>
 </section>
 <section id="screenshots">
@@ -355,8 +405,8 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
 </section>
 
 <footer>
-  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
-  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Oct. 21, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html" aria-current="page">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Nov. 2, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
 </footer>
 
 </div>
@@ -384,7 +434,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
   const cpi = [253.317,259.117,266.041,275.304,286.062,295.259,300.032,309.497,330.539,340.056,351.064,356.460,369.913];
   const fb = [1.27,1.46,1.89,0.82,0.09,-0.06,-0.11,7.14,16.62,23.14,22.89,24.25,23.17];
   const unasPct = [3.5,4.5,5.5,-0.5,-6.2,-4.2,-4.5,19.1,40.8,53.0,25.5,26.3,22.0,21.0,20.0];
-  const policy = [10,10,10,10,10,10,10,10,10,10,17,17,17,17,17];
+  const policy = [10,10,10,10,10,10,10,10,10,10,10,17,17,17,17];
   const FY4 = FY.concat(["FY27 proj.","FY28 proj."]);
   const cpYears = ["2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
   const fr = [70.2,65.6,67.3,66.2,66.7,66.0,75.2,65.1,64.8,66.9,71.0];
@@ -478,7 +528,7 @@ a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
       data: { labels: FY4, datasets: [
         { type: "line", label: "Unassigned reserve, % of expenditures", data: unasPct, borderColor: acc, backgroundColor: acc, yAxisID: "y1", tension: 0.2, borderWidth: 2.5,
           segment: { borderDash: ctx => ctx.p0DataIndex >= 12 ? [5, 4] : undefined }, pointRadius: 3, order: 0 },
-        { type: "line", label: "City policy floor (10% to 2023, then 17%)", data: policy, borderColor: warn, borderDash: [3, 3], pointRadius: 0, stepped: true, yAxisID: "y1", order: 1 },
+        { type: "line", label: "City reserve goal (10% to Nov. 2024, then 17%)", data: policy, borderColor: warn, borderDash: [3, 3], pointRadius: 0, stepped: true, yAxisID: "y1", order: 1 },
         { type: "bar", label: "Total General Fund balance ($M)", data: fb.concat([null, null]), backgroundColor: fb.map(v => v < 0 ? bad : s3).concat([s3, s3]), yAxisID: "y", order: 2 }] },
       options: { maintainAspectRatio: false, plugins: { legend: legend() },
         scales: { x: xAxis(),

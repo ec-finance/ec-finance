@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Cerrito Finance Check · The $140 million</title>
+<meta name="description" content="The same unsupported "$140 million" figure appears in both Kimberly White's and Wally Nowinski's 2026 campaign bios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with full-width chart panels; claims ledgers as scrollable tables. Audit-ledger feel: cool paper, ink, one blue accent, semantic verdict colors. */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56636e;
+  --rule: #d6dde2;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --ok: #2f6b3c;
+  --ok-soft: #e4f0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ecd6;
+  --bad: #9b2f24;
+  --bad-soft: #f6e2df;
+  --series2: #c4672b;
+  --series3: #8a99a5;
+  --series4: #5b8c6a;
+  --series5: #b48a2c;
+  --series6: #7a5c99;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+    --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+    --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+    --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+  --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+  --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+  --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+p.prose { display: block; }
+header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 26px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { font-size: 18px; max-width: 68ch; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.part { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--rule); padding-top: 18px; }
+.bottomline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.bl { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bl strong { font-size: 15px; }
+.bl span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.chip { display: inline-block; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+table.narrow { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+tr.group td { background: var(--bg); font-weight: 600; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); font-size: 13px; white-space: nowrap; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.chartbox { position: relative; height: 320px; width: 100%; }
+.chartbox.tall { height: 380px; }
+.caption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; flex-wrap: wrap; }
+.toggle button { font: 500 13px var(--font-body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; border-right: 1px solid var(--rule); }
+.toggle button:last-child { border-right: 0; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.sidebar { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sidebar h4 { margin: 0; font-size: 16px; }
+.sidebar table { min-width: 0; font-size: 13px; }
+.sidebar td, .sidebar th { padding: 8px 10px; }
+.fund { border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+.fund + .fund { margin-top: 8px; }
+.fund summary { cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; font-weight: 600; list-style: none; }
+.fund summary::-webkit-details-marker { display: none; }
+.fund summary span::before { content: "\25B8"; display: inline-block; width: 1.1em; color: var(--muted); }
+.fund[open] summary span::before { content: "\25BE"; }
+.fund summary b { font-family: var(--font-data); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fund table { min-width: 0; }
+.fund td { padding: 8px 14px; }
+.fund tr:last-child td { border-bottom: 0; }
+.fund.taxpayer { border: 2px solid var(--accent); }
+.fund.taxpayer summary { color: var(--accent); }
+.fund p { margin: 0; padding: 0 14px 12px; font-size: 14px; line-height: 1.5; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.projects h4 { margin: 0 0 4px; font-size: 16px; }
+.projects .caption { margin: 0 0 10px; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
+ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+.sources { font-size: 13px; color: var(--muted); }
+.sources li { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.sitenav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.sitenav a { text-decoration: none; }
+.sitenav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.sitenav a:hover { text-decoration: underline; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+a.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0; }
+a.card:hover { border-color: var(--accent); }
+a.card strong { font-family: var(--font-display); font-size: 19px; font-weight: 650; color: var(--accent); }
+a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.shots { display: block; margin-top: 6px; font-size: 13px; }
+.gallery { display: flex; flex-direction: column; gap: 28px; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
+.gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.biogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.biogrid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.biogrid img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.biogrid figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html" aria-current="page">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <div class="eyebrow">Part 5 · The $140 million · Nowinski and White</div>
+  <h1>The same "$140 million" in two bios</h1>
+  <p class="lede">Kimberly White's BART savings and Wally Nowinski's Collage.com revenue were both described as "more than $140 million" on the slate's shared website. Neither figure is documented, and one has since been removed.</p>
+</header>
+
+<section id="the-140m">
+    <div class="bottomline">
+    <div class="bl"><span class="chip bad">Not supported</span><strong>Both "$140 million" claims first appeared on the slate's shared website, in matching sentences.</strong><span>Wayback Machine captures of 2votes4changeec.com, taken minutes apart on Aug. 3, 2026, show both bios using "more than $140 million," each followed by a "without any downside" clause. Neither figure is backed by a public record, and one has since been removed.</span></div>
+    <div class="bl"><span class="chip warn">Changing numbers</span><strong>White's figure has been $100 million and $140 million at the same time.</strong><span>Her ballot statement (filed July 28) and a campaign video say "over $100 million." Her website and the marked-ballot mailer say "over $140 million."</span></div>
+  </div>
+
+  <h3>The two bios, as captured Aug. 3, 2026</h3>
+  <div class="biogrid">
+  <figure>
+    <a href="screenshots/bio-140m-white.png"><img src="screenshots/bio-140m-white.png" width="444" height="304" loading="lazy" alt="Kimberly White's bio, 2votes4changeec.com, Wayback Machine capture of Aug. 3, 2026. Highlighting added."></a>
+    <figcaption>Kimberly White's bio, 2votes4changeec.com, Wayback Machine capture of Aug. 3, 2026. Highlighting added.</figcaption>
+  </figure>
+  <figure>
+    <a href="screenshots/bio-140m-nowinski.png"><img src="screenshots/bio-140m-nowinski.png" width="444" height="234" loading="lazy" alt="Wally Nowinski's bio, 2votes4changeec.com, Wayback Machine capture of Aug. 3, 2026. Highlighting added; the revenue sentence has since been removed."></a>
+    <figcaption>Wally Nowinski's bio, 2votes4changeec.com, Wayback Machine capture of Aug. 3, 2026. Highlighting added; the revenue sentence has since been removed.</figcaption>
+  </figure>
+  </div>
+
+  <h3>What the record shows</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Claim</th><th>What the record shows</th></tr></thead>
+    <tbody>
+      <tr><td><strong>White:</strong> saved BART "more than $140 million over five years … without a single layoff"</td><td>No BART budget, audit or board record found matches it. The 2005 and 2009 deficit fixes were about $100M over four years each (the 2009 one contentious with unions), the $516M figure from the regional Financial Efficiency Review covers FY2020–FY2025 across the whole agency, and the FY2026 cuts were $35M in one year. At the Sept. 30 forum she said $100M was the forecast and $140M the result, in a "department of 900 people, about $100 million budget." Her ballot statement, filed July 28, says she "led a team that saved over $100 million over five years," in the past tense.</td></tr>
+      <tr><td><strong>Nowinski:</strong> helped grow Collage.com "to more than $140 million in annual revenue … with no debt and no outside investment"</td><td>The company's own figures were far lower. Its careers page said it had "grown from $4 to $38 million in annual revenue since 2013" in March 2020, and "from $4 to $50 million" from April 2020 through April 2021, the month before it was sold to Foreground. CNBC reported in 2017 that revenue "grew from $900,000 … to more than $25 million in 2016 — without any outside investment." Crunchbase, as cited in trade coverage of the 2022 shutdown, put pre-sale revenue near $40M. The "no outside investment" part matches these sources. Between Sept. 18 and Oct. 28, 2026 his bio dropped the revenue figure; it now says only that he "helped grow the company from four people to more than 100 employees."</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">Wayback Machine captures: <a href="https://web.archive.org/web/20260803044225/https://www.2votes4changeec.com/kimberly_white">White bio, Aug. 3, 2026</a> and <a href="https://web.archive.org/web/20260803044203/https://www.2votes4changeec.com/wally_nowinski">Nowinski bio, Aug. 3, 2026</a>, also captured Sept. 18. Ballot statement as reproduced on the portfolio site's 2026 candidates page. BART: adopted budgets and the MTC Financial Efficiency Review (Phase 1). Collage: careers page as archived <a href="https://web.archive.org/web/20200325131058/https://www.collage.com/careers">March 25, 2020</a> and <a href="https://web.archive.org/web/20210420162433/https://www.collage.com/careers">April 20, 2021</a>; <a href="https://www.cnbc.com/2017/04/25/10-virtual-companies-offering-six-figure-salaries.html">CNBC, April 25, 2017</a>; <a href="https://thedeadpixelssociety.com/collage-com-shuts-down/">Dead Pixels Society, Oct. 2022</a>.</p>
+</section>
+
+<footer>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html">Part 4 · Mailers</a><a href="140-million.html" aria-current="page">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Nov. 2, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Cerrito Finance Check · Campaign mailers</title>
+<meta name="description" content="Fall 2026 El Cerrito campaign mailers checked: the +41% spending flyer, the A+ rating and $13.1 million street claims, and the outside water-heater mailer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with full-width chart panels; claims ledgers as scrollable tables. Audit-ledger feel: cool paper, ink, one blue accent, semantic verdict colors. */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56636e;
+  --rule: #d6dde2;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --ok: #2f6b3c;
+  --ok-soft: #e4f0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ecd6;
+  --bad: #9b2f24;
+  --bad-soft: #f6e2df;
+  --series2: #c4672b;
+  --series3: #8a99a5;
+  --series4: #5b8c6a;
+  --series5: #b48a2c;
+  --series6: #7a5c99;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+    --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+    --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+    --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181e; --panel: #182229; --ink: #e5ebef; --muted: #9aa8b3; --rule: #2c3a44;
+  --accent: #7db4dc; --accent-soft: #1d2f3c; --ok: #86c793; --ok-soft: #1c2f22;
+  --warn: #e2b55c; --warn-soft: #34291a; --bad: #ef9184; --bad-soft: #3a2220;
+  --series2: #e5935c; --series3: #6f808c; --series4: #7fb58e; --series5: #d6ac4f; --series6: #a68bc4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.prose { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+p.prose { display: block; }
+header { display: flex; flex-direction: column; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 24px; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 26px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; margin: 0; }
+p { margin: 0; }
+.lede { font-size: 18px; max-width: 68ch; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.part { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--rule); padding-top: 18px; }
+.bottomline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.bl { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bl strong { font-size: 15px; }
+.bl span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.chip { display: inline-block; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.info { background: var(--accent-soft); color: var(--accent); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: var(--muted); align-items: center; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+table.narrow { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+tr.group td { background: var(--bg); font-weight: 600; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-data); font-size: 13px; white-space: nowrap; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.chartbox { position: relative; height: 320px; width: 100%; }
+.chartbox.tall { height: 380px; }
+.caption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; flex-wrap: wrap; }
+.toggle button { font: 500 13px var(--font-body); border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; border-right: 1px solid var(--rule); }
+.toggle button:last-child { border-right: 0; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.stat-row b { font-family: var(--font-data); font-weight: 500; font-variant-numeric: tabular-nums; }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.sidebar { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sidebar h4 { margin: 0; font-size: 16px; }
+.sidebar table { min-width: 0; font-size: 13px; }
+.sidebar td, .sidebar th { padding: 8px 10px; }
+.fund { border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+.fund + .fund { margin-top: 8px; }
+.fund summary { cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; font-weight: 600; list-style: none; }
+.fund summary::-webkit-details-marker { display: none; }
+.fund summary span::before { content: "\25B8"; display: inline-block; width: 1.1em; color: var(--muted); }
+.fund[open] summary span::before { content: "\25BE"; }
+.fund summary b { font-family: var(--font-data); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fund table { min-width: 0; }
+.fund td { padding: 8px 14px; }
+.fund tr:last-child td { border-bottom: 0; }
+.fund.taxpayer { border: 2px solid var(--accent); }
+.fund.taxpayer summary { color: var(--accent); }
+.fund p { margin: 0; padding: 0 14px 12px; font-size: 14px; line-height: 1.5; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.projects h4 { margin: 0 0 4px; font-size: 16px; }
+.projects .caption { margin: 0 0 10px; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; max-width: 68ch; display: flex; flex-direction: column; gap: 10px; }
+ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+.sources { font-size: 13px; color: var(--muted); }
+.sources li { margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.sitenav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.sitenav a { text-decoration: none; }
+.sitenav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.sitenav a:hover { text-decoration: underline; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+a.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0; }
+a.card:hover { border-color: var(--accent); }
+a.card strong { font-family: var(--font-display); font-size: 19px; font-weight: 650; color: var(--accent); }
+a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.shots { display: block; margin-top: 6px; font-size: 13px; }
+.gallery { display: flex; flex-direction: column; gap: 28px; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 16px; }
+.gallery img { display: block; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.gallery figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 68ch; }
+.biogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.biogrid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.biogrid img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.biogrid figcaption { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.gallery figure:target img { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html" aria-current="page">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <div class="eyebrow">Part 4 · 2026 campaign mailers</div>
+  <h1>What the fall 2026 mailers say, checked</h1>
+  <p class="lede">Claims from the Nowinski/White, Quinto/Wysinger and outside-committee mailers, tested against the City's reports, neighboring cities' year-end reports, State Controller data and Caltrans and Air District records.</p>
+</header>
+
+<section id="mailers">
+    <p class="prose">Three mailers that reached El Cerrito households in October 2026: the Nowinski/White marked ballot with its "+41%" spending claim, the Quinto/Wysinger "Ticket for Progress," and a water-heater mailer supporting Quinto that was paid for by an outside committee funded by oil refiners. Each claim is checked against the same sources as the rest of this site. Photos are re-encoded with no metadata.</p>
+  <ul class="tight">
+    <li><a href="#flyer-41">"Since 2022, City spending has increased +41%. More than 3x the average inflation rate"</a> (Nowinski/White)</li>
+    <li><a href="#water-heater">"Mayor Gabe Quinto stopped" $10,000 water heaters</a> (outside committee)</li>
+    <li><a href="#incumbent-mailer">The A+ rating, the $13.1 million for San Pablo Ave., and what the street grants cover</a> (Quinto/Wysinger)</li>
+    <li>The "$140 million" that appears in both White's and Nowinski's bios is in <a href="140-million.html">Part 5</a>.</li>
+  </ul>
+  <div class="gallery">
+  <figure id="mailer-01">
+    <a href="screenshots/mailer-01-nowinski-white-front.jpg"><img src="screenshots/mailer-01-nowinski-white-front.jpg" width="1000" height="1250" loading="lazy" alt="Nowinski/White marked-ballot mailer, front: &quot;Since 2022, City spending has increased +41%. More than 3x the average inflation rate in the SF Bay Area.&quot;"></a>
+    <figcaption>Nowinski/White marked-ballot mailer, front: "Since 2022, City spending has increased +41%. More than 3x the average inflation rate in the SF Bay Area."</figcaption>
+  </figure>
+  <figure id="mailer-02">
+    <a href="screenshots/mailer-02-nowinski-white-back.jpg"><img src="screenshots/mailer-02-nowinski-white-back.jpg" width="1000" height="1371" loading="lazy" alt="Nowinski/White mailer, back: candidate notes (including White's &quot;$140 million&quot; and Wysinger's &quot;41% since she took office&quot;) and the sources list, with Source 4's &quot;[DATE]&quot; placeholder. Paid for by the two candidates' committees."></a>
+    <figcaption>Nowinski/White mailer, back: candidate notes (including White's "$140 million" and Wysinger's "41% since she took office") and the sources list, with Source 4's "[DATE]" placeholder. Paid for by the two candidates' committees.</figcaption>
+  </figure>
+  <figure id="mailer-03">
+    <a href="screenshots/mailer-03-quinto-wysinger.jpg"><img src="screenshots/mailer-03-quinto-wysinger.jpg" width="1000" height="1528" loading="lazy" alt="Quinto/Wysinger &quot;Ticket for Progress&quot; mailer: &quot;$13.1 million in state funding&quot; for San Pablo Ave. and &quot;an A+ bond rating from S&amp;P Global.&quot;"></a>
+    <figcaption>Quinto/Wysinger "Ticket for Progress" mailer: "$13.1 million in state funding" for San Pablo Ave. and "an A+ bond rating from S&amp;P Global."</figcaption>
+  </figure>
+  <figure id="mailer-04">
+    <a href="screenshots/mailer-04-water-heater-ie.jpg"><img src="screenshots/mailer-04-water-heater-ie.jpg" width="1000" height="1290" loading="lazy" alt="Water-heater mailer supporting Quinto, paid for by the Committee for Jobs and the Economy (top funders PBF Energy and Phillips 66); not authorized by a candidate."></a>
+    <figcaption>Water-heater mailer supporting Quinto, paid for by the Committee for Jobs and the Economy (top funders PBF Energy and Phillips 66); not authorized by a candidate.</figcaption>
+  </figure>
+  </div>
+</section>
+
+<section id="flyer-41">
+  <h2>"+41% since 2022, more than 3x inflation"</h2>
+  <div class="bottomline">
+    <div class="bl"><span class="chip bad">Mixed basis</span><strong>Counted the same way in both years, spending rose 34%, not 41%.</strong><span>The flyer divides FY2026 spending <em>including</em> $2.76M of transfers to other funds by FY2022 spending <em>excluding</em> them. The FY2026 transfers include a one-time payment of more than $1M to close out the former redevelopment agency.</span></div>
+    <div class="bl"><span class="chip warn">Cherry-picked window</span><strong>The window starts at a low point.</strong><span>FY2022 came right after the State Auditor's high-risk designation and the pandemic cuts, when spending was flat with FY2019. Measured from before the pandemic, spending grew about 1.4x inflation.</span></div>
+    <div class="bl"><span class="chip ok">Comparable to neighbors</span><strong>Nearby cities grew as fast or faster.</strong><span>On the flyer's exact years, Pinole and Richmond grew faster than El Cerrito. Across 100 Bay Area cities, El Cerrito was near the middle for FY2022–FY2025 and in the bottom fifth since FY2019.</span></div>
+    <div class="bl"><span class="chip bad">Wrong start date</span><strong>"41% since she took office" starts before Wysinger was on the Council.</strong><span>She was sworn in Dec. 20, 2022. FY2022 had ended six months earlier, and the FY2023 budget was adopted in June 2022. From FY2023, spending rose 24% against 9% inflation.</span></div>
+  </div>
+
+  <h3>How the 41% is built</h3>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Measure</th><th class="num">FY2022</th><th class="num">FY2026*</th><th class="num">Change</th><th class="num">vs. inflation</th></tr></thead>
+    <tbody>
+      <tr><td>Flyer: FY2026 with transfers, FY2022 without</td><td class="num">$40.22M</td><td class="num">$56.52M</td><td class="num">+40.5%</td><td class="num">3.4x (June CPI, +11.9%)</td></tr>
+      <tr><td>Both years without transfers</td><td class="num">$40.22M</td><td class="num">$53.76M</td><td class="num">+33.7%</td><td class="num">2.4x (fiscal-year CPI, +13.9%)</td></tr>
+      <tr><td>Both years with transfers</td><td class="num">$40.80M</td><td class="num">$56.52M</td><td class="num">+38.5%</td><td class="num">2.8x</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">* FY2026 unaudited (Sept. 15, 2026 Q4 update). General Fund expenditures from the FY2022 ACFR and the Q4 update. CPI: BLS CPI-U, San Francisco–Oakland–Hayward. The flyer's +11.9% (June 2022 to June 2026) checks out, but its series ID (CUURA422SA0) has been retired; the current series is CUURS49BSA0. Because FY2022 ran July 2021–June 2022, mostly before the 2022 price spike, fiscal-year averages (+13.9%) are the better match for fiscal-year spending.</p>
+  <div class="callout">
+    <p><strong>Spending did outpace inflation.</strong> Counted consistently, FY2022–FY2026 spending grew about 17% after inflation. The flyer's direction is right; its size is inflated by the mixed basis, the starting year and the choice of CPI months. Most General Fund spending is pay and benefits, and state and local government compensation nationally rose 18.6% over the same four years (BLS Employment Cost Index), so against labor costs the ratio is about 1.8x.</p>
+  </div>
+
+  <h3>Other windows</h3>
+  <p class="prose">The same calculation, counted consistently, for every start year ending in FY2026.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Start → FY2026</th><th class="num">Spending</th><th class="num">Inflation</th><th class="num">Ratio</th></tr></thead>
+    <tbody>
+      <tr><td>FY2014</td><td class="num">+88.6%</td><td class="num">+46.3%</td><td class="num">1.9x</td></tr>
+      <tr><td>FY2016</td><td class="num">+71.7%</td><td class="num">+38.6%</td><td class="num">1.9x</td></tr>
+      <tr><td>FY2019 (pre-pandemic)</td><td class="num">+33.7%</td><td class="num">+24.8%</td><td class="num">1.4x</td></tr>
+      <tr><td>FY2020</td><td class="num">+35.5%</td><td class="num">+22.0%</td><td class="num">1.6x</td></tr>
+      <tr><td>FY2021</td><td class="num">+44.5%</td><td class="num">+19.4%</td><td class="num">2.3x</td></tr>
+      <tr class="group"><td>FY2022 (flyer, consistent)</td><td class="num">+33.7%</td><td class="num">+13.9%</td><td class="num">2.4x</td></tr>
+      <tr><td>FY2023 (Wysinger's first year)</td><td class="num">+23.7%</td><td class="num">+8.7%</td><td class="num">2.7x</td></tr>
+      <tr><td>FY2024</td><td class="num">+10.5%</td><td class="num">+5.5%</td><td class="num">1.9x</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">General Fund expenditures excluding transfers in every year; FY2026 unaudited. Inflation: Bay Area CPI-U, fiscal-year averages. FY2022 spending ($40.2M) was the same as FY2019's ($40.2M), a 9% cut after inflation, so starting the clock in 2022 measures the rebound from that cut.</p>
+
+  <h3>Compared with neighboring cities</h3>
+  <p class="prose">Two neighbors have released FY2026 year-end General Fund figures in the same kind of September report as El Cerrito's, so the flyer's exact years can be compared directly.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>City, FY2022 → FY2026</th><th class="num">Without transfers</th><th class="num">vs. inflation</th><th class="num">With transfers</th><th class="num">Flyer's method</th></tr></thead>
+    <tbody>
+      <tr class="group"><td>El Cerrito</td><td class="num">+33.7%</td><td class="num">2.4x</td><td class="num">+38.5%</td><td class="num">+40.5% (3.4x)</td></tr>
+      <tr><td>Pinole</td><td class="num">+37.2%</td><td class="num">2.7x</td><td class="num">+32.4%</td><td class="num">+51.6% (4.3x)</td></tr>
+      <tr><td>Richmond</td><td class="num">+42.5%</td><td class="num">3.1x</td><td class="num">+52.2%</td><td class="num">+61.2% (5.1x)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">Pinole: FY2021-22 Q4 Financial Report (Sept. 20, 2022) and FY2025-26 Q4 Financial Report (Sept. 15, 2026); its General Fund includes the Measure S and Measure I sales-tax funds, and FY2026 includes revenue from a sales tax passed in 2024. Richmond: FY2021-22 Year-End Clean-Up staff report (Oct. 18, 2022) and FY2025-26 Q4 report, Attachment 1 (Sept. 15, 2026); Richmond's FY2026 ran a $9.8M operating deficit covered by a one-time $50M Chevron settlement. Both cities' figures are their own unaudited year-end estimates in both years. Each city defines its General Fund differently, so compare growth rates, not dollars. The other ten neighbors (Albany, Berkeley, San Pablo, Hercules, Emeryville, Piedmont, Alameda, Orinda, Lafayette, Moraga) had not published FY2026 year-end figures as of Nov. 2, 2026.</p>
+  <p class="prose">For a broader comparison, the State Controller collects every California city's spending on one reporting form, through FY2025. This measure is operating spending in all governmental funds (it leaves out capital projects and debt payments), which tracks El Cerrito's General Fund closely: +28.8% here vs. +28.6% in the audited General Fund for FY2022–FY2025.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Window</th><th class="num">El Cerrito</th><th class="num">Bay Area median (100 cities)</th><th class="num">El Cerrito's rank (1 = fastest)</th><th class="num">Inflation</th></tr></thead>
+    <tbody>
+      <tr><td>FY2022→25</td><td class="num">+28.8% (2.8x)</td><td class="num">+25.1% (2.4x)</td><td class="num">32nd</td><td class="num">+10.3%</td></tr>
+      <tr><td>FY2019→25 (pre-pandemic)</td><td class="num">+31.3% (1.5x)</td><td class="num">+42.2% (2.0x)</td><td class="num">83rd</td><td class="num">+20.9%</td></tr>
+      <tr><td>FY2017→25</td><td class="num">+57.0% (1.9x)</td><td class="num">+60.5% (2.0x)</td><td class="num">59th</td><td class="num">+29.7%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">California State Controller, Cities Financial Transactions Report (bythenumbers.sco.ca.gov, dataset ju3w-4gxp): current expenditures in governmental funds, excluding capital outlay and debt service; all cities in the nine Bay Area counties with complete data. For FY2022→25 the median of twelve nearby cities (Albany, Berkeley, Richmond, San Pablo, Pinole, Hercules, Emeryville, Piedmont, Alameda, Orinda, Lafayette, Moraga) was +28.1%. Since FY2019 El Cerrito grew more slowly than Albany (+62%), Berkeley (+52%), Piedmont (+55%) and San Pablo (+43%).</p>
+
+  <h3>"Since she took office"</h3>
+  <div class="callout">
+    <p>The back of the flyer says Carolyn Wysinger is a "4-year incumbent" and "City spending has increased 41% since she took office." The Council's Dec. 20, 2022 minutes record her swearing-in. By then FY2022 had been over for six months, and the FY2023 budget had been adopted by the prior Council in June 2022. The footnote for the claim (Source 1) begins with the State Auditor's March 2021 report, from before she was elected.</p>
+    <p>Measured from FY2023, the year she joined, to FY2026, General Fund spending rose from $43.46M to $53.76M: <strong>+23.7%, against Bay Area inflation of 8.7%, or 2.7x</strong> (about 14% after inflation). That is still well above inflation, but it is 24%, not 41%. The fastest year was FY2024 (+12%), when the Council added a $1M pension-trust deposit and labor contracts that followed a 2024 compensation study (see <a href="questions.html#drivers">what's driving spending</a>).</p>
+  </div>
+
+</section>
+
+<section id="water-heater">
+  <h2>"Mayor Gabe Quinto stopped" $10,000 water heaters</h2>
+  <div class="bottomline">
+    <div class="bl"><span class="chip info">Not Quinto's claim</span><strong>An outside committee funded by refiners paid for this mailer.</strong><span>The disclosure reads: "Ad paid for by Committee for Jobs and the Economy, Sponsored by Energy Companies," with PBF Energy Western Region (owner of the Martinez refinery) and Phillips 66 as top funders, and "Not authorized by a candidate or a committee controlled by a candidate." Quinto's own campaign site and mailer don't make this claim.</span></div>
+    <div class="bl"><span class="chip bad">Inaccurate</span><strong>Nothing has been stopped, it isn't an El Cerrito rule, and $10,000 is not the typical cost.</strong><span>Details below.</span></div>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Mailer says</th><th>Record shows</th></tr></thead>
+    <tbody>
+      <tr><td>"Bureaucrats wanted to make El Cerrito homeowners install new water heaters"</td><td>It is a Bay Area–wide Air District rule (Regulation 9, Rule 6), not a City rule. It applies when a gas water heater is replaced, requiring a zero-emission unit, usually a heat pump. Working water heaters can stay in place.</td></tr>
+      <tr><td>"costing $10,000"</td><td>The Air District puts the average heat-pump installation at about $7,000, about $3,500 more than a gas unit. Electrical upgrades can add $2,000–$30,000 in some homes, but those homes are the ones the proposed exemptions would cover.</td></tr>
+      <tr><td>"Mayor Gabe Quinto stopped them"</td><td>Quinto is one of 24 Air District board members. At a May 13, 2026 straw vote the board voted 10–8 to move the rule forward; Quinto said "Most Californians will not be able to afford this" and was reported among those pushing back (no roll call was published). On July 14 staff proposed a later start and exemptions that could cover about 38% of installations. The final vote is scheduled for Nov. 4, 2026, the day after the election.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">Air District board roster; Palo Alto Daily Post, May 13 and July 15, 2026; Air District draft amendments, July 14, 2026; Canary Media on costs and exemptions; Sierra Club SF Bay on the Nov. 4 vote. A fair version: Quinto spoke and voted for affordability changes, and staff later proposed a delay and exemptions. Whether the rule is delayed or softened will be decided Nov. 4.</p>
+</section>
+
+<section id="incumbent-mailer">
+  <h2>The Quinto/Wysinger mailer: the A+ rating and the San Pablo Ave. money</h2>
+  <p class="prose">The "Ticket for Progress" mailer lists four "Years of Accomplishments." Two are checkable financial claims. Quinto's campaign site makes a related ratings claim.</p>
+
+  <h3>The A+ and the A−: two different bonds</h3>
+  <p class="prose">On Sept. 9, 2025 S&amp;P raised both of the City's rated debts by two notches. Only one of them is A+.</p>
+  <div class="tablewrap">
+  <table class="narrow">
+    <thead><tr><th>Debt</th><th>Repaid from</th><th class="num">Original</th><th class="num">Owed June 30, 2025</th><th>S&amp;P, Sept. 2025</th></tr></thead>
+    <tbody>
+      <tr><td>2017 Sales Tax Revenue Refunding Bonds (El Cerrito Public Financing Authority)</td><td>A dedicated sales tax</td><td class="num">$8.65M</td><td class="num">$5.86M</td><td>A− → <strong>A+</strong></td></tr>
+      <tr><td>2017 Lease Revenue Refunding Bonds, refinancing the 2006 City Hall bonds (rated by S&amp;P as certificates of participation)</td><td>General revenues (lease payments)</td><td class="num">$7.04M</td><td class="num">$4.92M</td><td>BBB → <strong>A−</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">City of El Cerrito press release, Sept. 9, 2025; FY2025 ACFR, long-term debt note. The audit and S&amp;P use different names for the lease debt; the 2017 date and lease structure match. The two together are about $10.8M of the City's $13.9M in governmental long-term debt.</p>
+  <div class="callout">
+    <p>The A− is the better guide to the General Fund's credit: it is S&amp;P's underlying rating on debt the City repays from general revenues. The A+ sits on a revenue bond backed by a dedicated tax. Both upgrades are real; S&amp;P cited "improved underlying creditworthiness" and "sustained structural balance, robust reserve position, and improved internal controls."</p>
+    <p>For context, the State Auditor's 2021 report says the City's rating fell from AA− in 2016 to BBB− in 2020, and the FY2014 audit reported an S&amp;P rating of A+. Quinto has been on the Council since 2014. The 2025 ratings are a recovery to about where the City stood when he joined, not a new high.</p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Claim</th><th>Where</th><th>Verdict</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>"The City Council has addressed long-term fiscal challenges and has earned an A+ bond rating from S&amp;P Global"</td><td>Quinto/Wysinger mailer</td><td><span class="chip ok">Accurate, incomplete</span></td><td>The sales tax bonds are rated A+. The singular "an A+ bond rating" is correct; it leaves out that the City's general-revenue debt is A−. The largest long-term liability, about $80M of unfunded pensions, remains.</td></tr>
+      <tr><td>"In September 2025 S&amp;P raised the city's ratings to A+"</td><td>Quinto campaign site</td><td><span class="chip warn">Overstated</span></td><td>"Ratings" plural is wrong: one went to A+, the other to A−.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>"$13.1 million in state funding to make San Pablo Ave. easier to drive, bike and walk"</h3>
+  <div class="bottomline">
+    <div class="bl"><span class="chip bad">Misleading</span><strong>The money is real; the city didn't secure it, and it doesn't add bike lanes.</strong><span>On Aug. 31, 2026 Caltrans announced a $13,113,000 allocation for SR-123 (San Pablo Avenue) in El Cerrito, from the Alameda County line to I-80, "to rehabilitate pavement and upgrade safety lighting." San Pablo Avenue is a state highway that Caltrans owns. This is Caltrans' own maintenance program for state highways. Caltrans has said the repaving "does not include road geometry changes" and can't pay for bike lanes; lane lines go back as they were. City staff asked Caltrans to add crosswalk upgrades, and Caltrans included two new flashing beacons (at Carlos and Sacramento avenues), high-visibility markings and safety lighting; six new mid-block crosswalks the City asked for were deferred to a future Caltrans safety project that isn't funded yet. Separately, the City pays Caltrans up to $400,000, from state SB1 road funds, for sidewalk and street-tree repairs at 13 locations, because the City owns the sidewalks. The Council approved that payment on Dec. 2, 2025, 5–0. It is a City cost, not money the City secured.</span></div>
+  </div>
+  <p class="caption">Caltrans District 4, "California Invests $2.7 Billion…," Aug. 31, 2026; Dec. 2, 2025 Council agenda report and minutes (item 7.E, Resolution 2025-75); El Cerrito/Richmond Annex Walk &amp; Roll on the project scope. A fair version: "Caltrans is repaving San Pablo Ave. for $13.1 million and, at the City's request, adding two flashing-beacon crosswalks."</p>
+
+  <aside class="sidebar" aria-label="Three separate projects">
+    <h4>Not to be confused: three different road projects on and near San Pablo Avenue</h4>
+    <p class="caption">The $13.1 million on the mailer is easy to mix up with the two Complete Streets projects that are also under way, which have their own grants and are what most "bike lane" discussion is about. They are separate projects with separate money.</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>Project</th><th>What it builds</th><th>Who pays</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Caltrans repaving, SR-123</strong><br>the mailer's $13.1M</td><td>New pavement and safety lighting on San Pablo Ave., Alameda County line to I-80; two flashing-beacon crosswalks added at the City's request. No bike lanes; lane lines restored as they were. Construction 2026-27.</td><td>Caltrans state highway maintenance program: $13.1M. The City pays Caltrans up to $400K, from state SB1 road funds, for sidewalk and street-tree repairs.</td></tr>
+        <tr><td><strong>Del Norte Complete Streets</strong><br>$14.9M total</td><td>Protected bike lanes (about 1.5 miles), protected crosswalks and bus boarding islands around Del Norte BART. Opened July 2026.</td><td>Federal $4.96M (33%) · State $3.47M (23%) · County and regional $4.50M (30%) · Developer fees $1.37M (9%) · El Cerrito taxpayers up to $0.60M (4%)</td></tr>
+        <tr><td><strong>Richmond Street Complete Streets</strong><br>about $11–13M total</td><td>Traffic calming, crosswalk safety, bike lanes north of Moeser Lane and repaving on Elm St. and Richmond St. Construction planned 2026-27.</td><td>Federal $8.00M (62%) · State $3.00M (23%) · EBMUD $1.20M (9%) · El Cerrito taxpayers $0.64M (5%) · Other $0.04M</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="caption">The Del Norte and Richmond Street grants were won years before the Caltrans allocation and are unrelated to it. Shares are of each project's listed sources; "El Cerrito taxpayers" means Measure A, the City's voter-approved street tax. Details and sources for both are below.</p>
+  </aside>
+
+  <h3>The two City street projects: who pays</h3>
+  <p class="prose">There is a lot of talk about the City "wasting money" on street projects. The two the City is building, separate from the Caltrans repaving, are mostly paid for by outside grants that can only be spent on those projects, and neither funding plan uses the General Fund. Whether the designs are good is a fair debate; that most of the money comes from elsewhere is not. Open a category to see its sources.</p>
+  <div class="projects">
+    <div>
+      <h4>Del Norte Complete Streets</h4>
+      <p class="caption">San Pablo Ave. at Del Norte BART, opened July 2026. Total $14,894,448.</p>
+      <details class="fund"><summary><span>Federal grants</span><b>$4,960,000 · 33%</b></summary>
+        <table><tbody><tr><td>One Bay Area Grant, Cycle 2</td><td class="num">$4,960,000</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>State grants and state road funds</span><b>$3,467,480 · 23%</b></summary>
+        <table><tbody><tr><td>Affordable Housing and Sustainable Communities (Mayfair)</td><td class="num">$2,900,800</td></tr><tr><td>SB1 Local Partnership Program</td><td class="num">$400,000</td></tr><tr><td>SB1 Local Streets &amp; Roads (state formula share)</td><td class="num">$151,680</td></tr><tr><td>Gas tax (state formula share)</td><td class="num">$15,000</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>County and regional</span><b>$4,499,957 · 30%</b></summary>
+        <table><tbody><tr><td>Contra Costa Measure J, Transportation for Livable Communities</td><td class="num">$2,312,000</td></tr><tr><td>West County subregional mitigation fees (WCCTAC)</td><td class="num">$1,189,980</td></tr><tr><td>Safe Routes to BART</td><td class="num">$812,977</td></tr><tr><td>Air District, Transportation Fund for Clean Air</td><td class="num">$185,000</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>Developer impact fees</span><b>$1,371,334 · 9%</b></summary>
+        <table><tbody><tr><td>City transportation impact fees and developer contributions</td><td class="num">$1,371,334</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>How the City got the money</span><b>mostly competitive grants</b></summary>
+        <p>The City applied for and won the federal One Bay Area Grant and the county Measure J TLC grant in 2016–17 (Council authorized the application in Resolution 2017-55). It won the West County mitigation-fee funding (Resolution 2021-44) and, jointly with the Mayfair affordable-housing developer, the state AHSC grant. BART awarded the Safe Routes to BART grant in 2023, closing the last funding gap. The SB1 Local Partnership money comes by formula to agencies with a voter-approved local transportation tax, as El Cerrito has; it wasn't competed for. Staff also ran the multi-year Caltrans approval process needed to build on a state highway.</p>
+      </details>
+      <details class="fund taxpayer" open><summary><span>El Cerrito taxpayer contribution</span><b>up to $595,677 · up to 4%</b></summary>
+        <p>The funding plan has no General Fund money. The only line that could come from El Cerrito taxpayers is $595,677 listed as "additional impact fees, SB1 or Measure A streets," without a split. If all of it came from Measure A, the City's voter-approved street tax, El Cerrito taxpayers paid 4% of the project; if it came from impact fees or SB1, less.</p>
+      </details>
+    </div>
+    <div>
+      <h4>Richmond Street Complete Streets</h4>
+      <p class="caption">Fairmount Ave. to Elm St., construction planned 2026-27. Sources listed total $12,887,470.</p>
+      <details class="fund"><summary><span>Federal grant</span><b>$8,003,010 · 62%</b></summary>
+        <table><tbody><tr><td>Safe Streets and Roads for All, administered by CCTA</td><td class="num">$8,003,010</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>State grants and state road funds</span><b>$3,000,600 · 23%</b></summary>
+        <table><tbody><tr><td>Affordable Housing and Sustainable Communities (El Cerrito Plaza award)</td><td class="num">$1,800,600</td></tr><tr><td>SB1 Local Partnership Program</td><td class="num">$800,000</td></tr><tr><td>SB1 road funds (state formula share)</td><td class="num">$400,000</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>Utility payment</span><b>$1,200,000 · 9%</b></summary>
+        <table><tbody><tr><td>EBMUD pavement restoration, in place of patching its pipeline trench</td><td class="num">$1,200,000</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>Other</span><b>$44,400 · 0.3%</b></summary>
+        <table><tbody><tr><td>Miscellaneous revenue</td><td class="num">$44,400</td></tr></tbody></table>
+      </details>
+      <details class="fund"><summary><span>How the City got the money</span><b>county-led and joint applications</b></summary>
+        <p>The $8.0M federal Safe Streets grant came from a countywide application that CCTA led in 2022. CCTA chose five projects in four cities, including Richmond Street "in partnership with the City of El Cerrito," and won $28.9M in February 2023. CCTA administers the grant; the City committed the required local match. The state AHSC money is part of the 2024 El Cerrito Plaza housing award ($18.0M in all), on which the City was co-applicant with the developers and BART, with $5.9M for City street work including Richmond Street. City staff negotiated the EBMUD payment through the permit for EBMUD's pipeline project. SB1 money again comes by formula.</p>
+      </details>
+      <details class="fund taxpayer" open><summary><span>El Cerrito taxpayer contribution</span><b>$639,460 · 5%</b></summary>
+        <p>No General Fund money. The City's match comes from Measure A, the voter-approved street tax: about 5% of the $12.9M in the sources listed. The project FAQ puts it at about $700,000, roughly 7% of an $11.1M total.</p>
+        <table><tbody><tr><td>Measure A street tax (the City's match)</td><td class="num">$639,460</td></tr></tbody></table>
+      </details>
+    </div>
+  </div>
+  <p class="caption">"El Cerrito taxpayer contribution" counts only money raised from El Cerrito taxpayers alone. Federal, state and county funds (including the countywide Measure J sales tax) are also paid in part by El Cerrito residents, along with everyone else who pays them. Del Norte: funding plan and grant history in the Oct. 17, 2023 Council agenda report (item 7.I) and the City's 2021-22 annual report in the March 15, 2022 Council packet; the City's July 2026 materials give "approximately $12.8 million in grant funding." Richmond Street: federal grant and CCTA's application from the Sept. 19, 2023 cooperative agreement with CCTA (item 7.H); AHSC award from the Oct. 15, 2024 Council report (item 7.I); state, utility and Measure A amounts from project C3080 in the proposed FY2026-27/2027-28 budget, citing a March 2026 Council report, including $294,730 of Measure A and $200,000 of SB1 moved to the project in FY2025-26. The project FAQ gives about $11.1M, 93% from grants and other agencies; the sources were prepared at different times and don't fully reconcile. Grant awards are tied to the projects they were awarded for and are not available for other City uses.</p>
+</section>
+
+<footer>
+  <nav class="sitenav" aria-label="Site"><a href="index.html">Overview</a><a href="finance-pages.html">Part 1 · Ira Sharenow's pages</a><a href="candidates.html">Part 2 · Candidates</a><a href="questions.html">Part 3 · Questions</a><a href="mailers.html" aria-current="page">Part 4 · Mailers</a><a href="140-million.html">Part 5 · The $140 million</a><a href="el-cerrito-financial-statements-FY2014-FY2026.xlsx">Workbook (.xlsx)</a><a href="index.html#sources">Sources</a></nav>
+  <p class="caption">Figures from the City of El Cerrito's audited reports and Council budget updates, CalPERS valuations and State Controller data. FY2025-26 figures are unaudited. Last updated Nov. 2, 2026 (<a href="index.html#revisions">what changed</a>). Corrections welcome.</p>
+</footer>
+
+</div>
+
+</body>
+</html>
